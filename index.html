@@ -1,0 +1,2673 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Harisse English Academy</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;
+min-height:100vh}
+button,input,select,textarea{font:inherit} button{cursor:pointer}
+.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh;gap:16px;padding:16px}
+.sidebar{border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.brand{text-align:center}.brand h1{font-size:36px;margin:8px 0 2px;font-family:"Trebuchet MS",sans-serif}.brand p{display:inline-block;border-radius:14px;padding:8px 20px;margin:4px 0;font-weight:800}
+.teacher-card{border-radius:20px;padding:10px;text-align:center}
+.teacher-photo{width:100%;height:310px;object-fit:cover;border-radius:14px;display:block}
+.photo-placeholder{height:310px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:80px;font-weight:900;}
+.bible-verse{margin:10px 4px 2px;text-align:center;line-height:1.18}
+.bible-verse strong{display:block;font-size:18px;margin-bottom:4px}
+.bible-verse span{display:block;font-size:13px;font-weight:600}
+.photo-actions{display:flex;gap:7px;margin-top:9px}.photo-actions button{flex:1;padding:9px 5px;border-radius:10px;border:1px solid var(--line);font-weight:700}
+.nav{display:grid;gap:6px}.nav button{border:0;text-align:left;padding:12px 14px;border-radius:13px;font-weight:800;font-size:16px}
+.sidebar-note{margin-top:auto;text-align:center;font-size:13px;opacity:.9}
+main{border-radius:26px;padding:18px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:4px 8px 15px}.title{font-size:32px;margin:0;}.sub{margin:5px 0;font-size:14px}.clock{border-radius:18px;padding:11px 16px;text-align:right;min-width:245px}.clock small{display:block;}.clock strong{display:block;font-size:18px;margin-top:3px}
+.panel{border:1px solid transparent;border-radius:20px;padding:16px;margin-bottom:16px;}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}.left,.right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.primary,.secondary,.ghost,.danger{border-radius:11px;padding:10px 14px;font-weight:800;border:1px solid transparent}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}.stat{border:1px solid transparent;border-radius:15px;padding:13px}.stat span{display:block;font-size:12px}.stat b{font-size:22px;display:block;margin-top:4px}
+.table{overflow:auto}table{width:100%;border-collapse:collapse;min-width:720px}th,td{border-bottom:1px solid transparent;padding:10px 9px;text-align:left;vertical-align:middle}th{font-size:13px}.actions{white-space:nowrap}.mini{padding:6px 9px;border-radius:8px;border:1px solid transparent;font-weight:700;margin-right:4px}
+.badge{display:inline-block;border:1px solid transparent;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800}.empty{text-align:center;padding:25px}
+.calendar-wrap{overflow:auto;max-height:calc(100vh - 230px);min-height:420px;position:relative;isolation:isolate}.calendar{display:grid;grid-template-columns:72px repeat(7,minmax(130px,1fr));min-width:1020px;border:1px solid var(--line);border-radius:14px;overflow:visible}.cal-head{text-align:center;padding:12px 4px;font-weight:900;border-right:1px solid transparent;border-bottom:1px solid transparent;position:sticky;top:0;z-index:50;height:72px;align-content:center;}.time-label{height:43px;padding:11px 5px;text-align:center;font-weight:800;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px}.cell{height:43px;position:relative;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:2px}.slot-controls{position:absolute;right:2px;top:2px;z-index:3;opacity:0}.cell:hover .slot-controls{opacity:1}.slot-control{font-size:8px;border:0;border-radius:4px;padding:2px}.event{position:relative;border-radius:10px;min-height:38px;margin:1px 0;padding:4px 48px 4px 6px;border:1px solid transparent;overflow:hidden;z-index:2}
+.event-main{display:block;border:0;width:100%;min-width:0;text-align:left;padding:0;font-weight:900;overflow:hidden}
+.cal-event-name{display:block;font-size:13px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-event-status{display:block;font-size:10px;font-weight:700;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.event-actions{position:absolute;right:3px;top:3px;bottom:3px;width:43px;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.event-action{border:0;border-radius:6px;padding:3px 2px;font-size:8px;font-weight:900;line-height:1.05;min-height:24px}
+.profile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.profile-item{border:1px solid transparent;border-radius:12px;padding:11px;}.profile-item small{display:block;}.profile-item b{display:block;margin-top:3px}
+.student-photo-box{display:flex;gap:15px;align-items:center;border:1px solid transparent;border-radius:18px;padding:12px;margin-bottom:14px}.student-photo{width:150px;height:150px;border-radius:16px;object-fit:cover}.student-photo-placeholder{width:150px;height:150px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:55px;font-weight:900}.student-photo-actions{display:grid;gap:6px}.student-photo-actions button{border:1px solid transparent;border-radius:9px;padding:8px;font-weight:800}
+.field{width:100%;padding:9px 10px;border:1px solid transparent;border-radius:9px;outline:none}label{display:grid;gap:5px;font-size:13px;font-weight:700}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.full{grid-column:1/-1}.modal-bg{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:15px;z-index:50}.modal{border-radius:20px;padding:20px;width:min(720px,100%);max-height:92vh;overflow:auto;}.modal h2{margin-top:0}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.toast{position:fixed;right:20px;bottom:20px;padding:12px 16px;border-radius:12px;z-index:100;max-width:360px}
+.hero{border-radius:18px;padding:18px;border:1px solid transparent}.hero h2{margin:0;font-size:25px}.notice{padding:10px 12px;border-radius:10px;border:1px solid transparent;}
+@media(max-width:900px){.bible-verse span{font-size:12px}.app{grid-template-columns:1fr;padding:8px}.sidebar{position:static}.nav{grid-template-columns:repeat(4,1fr)}.nav button{font-size:13px;padding:9px}.brand h1{font-size:30px}.teacher-photo,.photo-placeholder{height:230px}.sidebar-note{display:none}.top{align-items:stretch;flex-direction:column}.clock{text-align:left}.grid{grid-template-columns:1fr}}
+@media(max-width:560px){.cal-head{height:70px}.calendar-wrap{max-height:calc(100vh - 250px);min-height:380px}.nav{grid-template-columns:repeat(2,1fr)}main{padding:10px}.title{font-size:25px}.student-photo-box{flex-direction:column;align-items:flex-start}.student-photo{width:120px;height:120px}.student-photo-placeholder{width:120px;height:120px}}
+.app{grid-template-columns:320px minmax(0,1fr);gap:16px;padding:16px}
+.sidebar{
+  border:1px solid transparent;
+  border-radius:24px;padding:14px;
+
+  overflow:hidden;
+}
+.brand{border-radius:20px;padding:7px 5px 12px;text-align:center}
+.brand h1{font-size:32px;line-height:1.05;margin:8px 2px 6px;letter-spacing:-.7px;font-family:"Trebuchet MS",Arial,sans-serif}
+.brand p{border-radius:999px;padding:7px 17px;margin:2px 0 1px;font-weight:900;font-size:14px}
+.teacher-card{border:3px solid transparent;border-radius:21px;padding:10px;}
+.teacher-photo,.photo-placeholder{width:100%;height:310px;border-radius:15px}
+.bible-verse{margin:10px 4px 3px}
+.bible-verse strong{font-size:18px}
+.bible-verse span{font-size:13px;font-weight:600}
+.photo-actions{gap:7px;margin-top:9px}
+.photo-actions button{border:1px solid transparent;border-radius:10px;font-weight:800}
+.nav{gap:7px;padding-top:2px}
+.nav button{border:1px solid transparent;border-radius:15px;font-size:16px;padding:10px 13px;transition:transform .15s ease,box-shadow .15s ease;font-weight:900}
+.nav button:hover{transform:translateY(-1px);}
+main{border:1px solid transparent;border-radius:26px;padding:18px}
+.title{font-size:34px;letter-spacing:-.6px;font-family:"Trebuchet MS",Arial,sans-serif}
+.clock{border:1px solid transparent;border-radius:18px;}
+.clock small{font-weight:700}
+.panel{border:1px solid transparent;border-radius:21px;}
+.hero{border:1px solid transparent;border-radius:20px}
+.stats{gap:10px}
+.stat{border:1px solid transparent;min-height:86px}
+th{border-bottom:1px solid transparent}td{border-bottom:1px solid transparent}.modal{border:1px solid transparent;}
+.calendar-wrap{overflow:auto;max-height:calc(100vh - 230px);min-height:420px;border-radius:15px;overscroll-behavior:contain}
+.calendar{border-radius:14px;}
+.cal-head{border-right:1px solid transparent;border-bottom:1px solid transparent;position:sticky;top:0;z-index:60;}
+.event{padding-right:48px}
+.event-action{border:1px solid transparent;}
+.calendar-wrap .cal-head{position:sticky;top:0;z-index:60}.calendar-wrap .calendar > .cal-head:first-child{left:0;z-index:70}
+.calendar-wrap .calendar > .cal-head:nth-child(2),.calendar-wrap .calendar > .cal-head:nth-child(3),.calendar-wrap .calendar > .cal-head:nth-child(4),.calendar-wrap .calendar > .cal-head:nth-child(5),.calendar-wrap .calendar > .cal-head:nth-child(6),.calendar-wrap .calendar > .cal-head:nth-child(7),.calendar-wrap .calendar > .cal-head:nth-child(8){z-index:60}
+@media(max-width:1100px){.app{grid-template-columns:280px minmax(0,1fr)}.brand h1{font-size:27px}}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:static}.brand h1{font-size:29px}}
+@media(max-width:560px){.brand h1{font-size:24px}.title{font-size:27px}.calendar-wrap{max-height:calc(100vh - 250px)}}
+
+
+body::before, body::after{
+  content:"♥";
+  position:fixed;
+  z-index:0;
+  pointer-events:none;
+  font-family:Arial,sans-serif;
+  font-weight:900;
+}
+body::before{right:20px;top:105px;font-size:28px;transform:rotate(-12deg)}
+body::after{right:24px;bottom:18px;font-size:36px;transform:rotate(12deg)}
+.app{position:relative;z-index:1}
+.nav button{
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:14px;
+}
+.app{position:relative;z-index:1}
+th{border-bottom-color:transparent}
+td{border-bottom-color:transparent}
+.cal-head{border-right-color:transparent;border-bottom-color:transparent}
+.app{grid-template-columns:332px minmax(0,1fr);gap:16px;padding:14px 16px 16px}
+.sidebar{
+  border:1px solid transparent;
+  border-radius:22px;
+  padding:16px 18px;
+}
+.brand{padding:2px 0 5px}
+.brand h1{
+  
+  font-size:39px;line-height:1;letter-spacing:-1.4px;
+  margin:7px 0 8px;
+}
+.brand h1::after{content:"♥";display:inline-block;font-size:25px;margin-left:7px;transform:rotate(12deg) translateY(-8px)}
+.brand p{border-radius:999px;padding:8px 22px;font-size:15px;}
+.teacher-card{border:4px solid transparent;border-radius:21px;padding:7px;}
+.teacher-photo,.photo-placeholder{height:195px;border-radius:15px}
+.bible-verse{margin:9px 5px 5px;}
+.bible-verse strong{display:none}
+.bible-verse span{font-size:18px;font-weight:800;line-height:1.12;}
+.bible-verse span::after{content:"  ♥";font-size:22px}
+.photo-actions{gap:7px;margin-top:9px}
+.photo-actions button{min-height:45px;border-radius:11px;border:1px solid transparent;}
+.nav{gap:6px;padding-top:4px}
+.nav button{border:1px solid transparent;border-radius:999px;font-size:16px;padding:10px 17px;font-weight:900;}
+.nav button:hover{transform:translateX(1px);}
+.nav button.active{border:2px solid transparent;}
+.sidebar-inspiration{position:relative;margin-top:auto;min-height:115px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;padding:4px}
+.inspiration-lines{display:flex;flex-direction:column;align-items:center;font-size:30px;line-height:.95;transform:rotate(-5deg);}
+.inspiration-heart{font-size:44px;transform:rotate(-13deg);margin:0 0 12px 9px}
+.leaf-deco{position:absolute;left:-5px;bottom:-18px;font-size:72px;transform:rotate(-30deg);opacity:.8}
+
+main{border:1px solid transparent;border-radius:25px;padding:15px 16px 20px;}
+.top{padding:2px 13px 14px;align-items:center}
+.title{font-size:40px;line-height:1;letter-spacing:-1px;margin:0}
+.title::after{content:" ♥";font-size:30px}
+.sub{font-size:15px}
+.clock{min-width:355px;border:1px solid transparent;border-radius:18px;padding:12px 18px;}
+.clock small{font-size:14px}.clock strong{font-size:18px}
+.panel{border:1px solid transparent;border-radius:22px;padding:16px 20px;margin-bottom:15px;}
+.hero-reference{position:relative;display:flex;align-items:center;gap:16px;min-height:96px;overflow:hidden;padding:15px 26px}
+.hero-reference::after{content:"♥";position:absolute;right:155px;top:6px;font-size:35px;transform:rotate(14deg)}
+.hero-sun{font-size:57px;line-height:1;}
+.hero-copy{min-width:0}.hero-reference h2{font-size:30px;margin:0}
+.hero-note{margin-left:auto;margin-right:110px;text-align:center;font-size:19px;line-height:.95;transform:rotate(-4deg)}
+.hero-note span{font-size:23px;}
+.overview-reference{padding-top:13px}.section-heading{display:flex;align-items:center;gap:10px}
+.section-heading h2{font-size:28px}.section-icon{font-size:32px;font-weight:900;line-height:1}
+.today-heading .section-icon{font-size:36px}
+.badge{border:1px solid transparent;padding:7px 15px;font-size:13px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{min-height:88px;border:1px solid transparent;border-radius:15px;padding:11px 13px;display:flex;align-items:center;gap:11px;}
+.stat>div{min-width:0}.stat-icon{display:flex!important;width:52px;min-width:52px;height:52px;align-items:center;justify-content:center;border-radius:14px;font-size:28px!important;font-weight:900;margin:0!important}
+.stat span:not(.stat-icon){font-size:12px;}.stat b{font-size:25px;margin-top:4px}
+.today-reference{padding-top:15px}.today-table{min-width:760px}
+.today-table th{font-weight:900;border-bottom:1px solid transparent}
+.today-table td{border-bottom:1px solid transparent;padding:8px 9px}
+.status-pill{display:inline-block;min-width:96px;text-align:center;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:900}.cal-head{border-right-color:transparent;border-bottom-color:transparent}
+@media(max-width:1200px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-note{margin-right:45px}}
+@media(max-width:900px){.app{grid-template-columns:1fr;padding:8px}.sidebar{padding:14px}.sidebar-inspiration{display:none}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.clock{min-width:0}.hero-note{display:none}.hero-reference{min-height:90px}}
+@media(max-width:560px){.stats{grid-template-columns:1fr}.title{font-size:30px}.hero-reference h2{font-size:24px}.panel{padding:13px}}
+body{
+  min-height:100vh;
+
+}
+.app{grid-template-columns:332px minmax(0,1fr);gap:16px;padding:14px 16px 16px;position:relative;z-index:1}
+.sidebar{
+  border:1px solid transparent;
+  border-radius:23px;
+  padding:15px 18px;
+}
+.brand{padding:2px 0 6px}
+.brand h1{
+  font-size:40px;line-height:.98;letter-spacing:-1.5px;
+margin:7px 0 8px;
+}
+.brand h1::after{content:"♥";display:inline-block;font-size:26px;margin-left:7px;transform:rotate(12deg) translateY(-8px)}
+.brand p{border-radius:999px;padding:8px 22px;margin:2px 0 1px;font-size:15px;}
+.teacher-card{border:4px solid transparent;border-radius:21px;padding:7px;}
+.teacher-photo,.photo-placeholder{height:195px;border-radius:15px}
+.bible-verse{margin:9px 5px 5px;}
+.bible-verse strong{display:none}
+.bible-verse span{font-size:18px;font-weight:800;line-height:1.12;}
+.bible-verse span::after{content:"  ♥";font-size:22px}
+.photo-actions{gap:7px;margin-top:9px}
+.photo-actions button{min-height:45px;border-radius:11px;border:1px solid transparent;font-weight:800}
+.nav{gap:6px;padding-top:4px}
+.nav button{border:1px solid transparent;border-radius:999px;font-size:16px;padding:10px 17px;font-weight:900;transition:.15s ease}
+.nav button:hover{transform:translateX(1px);}
+.nav button.active{border:2px solid transparent;}
+.sidebar-inspiration{position:relative;margin-top:auto;min-height:115px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;padding:4px}
+.inspiration-lines{font-size:30px;line-height:.95;transform:rotate(-5deg);}
+.inspiration-heart{font-size:44px;transform:rotate(-13deg);margin:0 0 12px 9px}
+.leaf-deco{position:absolute;left:-5px;bottom:-18px;font-size:72px;transform:rotate(-30deg);opacity:.8}
+main{border:1px solid transparent;border-radius:25px;padding:15px 16px 20px;}
+.top{padding:2px 13px 14px;align-items:center}
+.title{font-size:40px;line-height:1;letter-spacing:-1px;margin:0}
+.title::after{content:" ♥";font-size:30px}
+.sub{font-size:15px}
+.clock{min-width:355px;border:1px solid transparent;border-radius:18px;padding:12px 18px;}
+.clock small{font-size:14px}.clock strong{font-size:18px}
+.panel{border:1px solid transparent;border-radius:22px;padding:16px 20px;margin-bottom:15px;}
+.hero-reference{position:relative;display:flex;align-items:center;gap:16px;min-height:96px;overflow:hidden;padding:15px 26px}
+.hero-reference::before{content:"";position:absolute;right:-20px;top:-30px;width:125px;height:125px;border-radius:50%;pointer-events:none}
+.hero-reference::after{content:"♥";position:absolute;right:145px;top:5px;font-size:35px;transform:rotate(14deg)}
+.hero-sun{font-size:57px;line-height:1;}
+.hero-reference h2{font-size:30px;margin:0}
+.hero-note{margin-left:auto;margin-right:110px;text-align:center;font-size:19px;line-height:.95;transform:rotate(-4deg)}
+.hero-note span{font-size:23px;}
+.overview-reference{padding-top:13px}.section-heading{display:flex;align-items:center;gap:10px}.section-heading h2{font-size:28px}.section-icon{font-size:32px;font-weight:900;line-height:1}
+.badge{border:1px solid transparent;padding:7px 15px;font-size:13px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{min-height:88px;border:1px solid transparent;border-radius:15px;padding:11px 13px;display:flex;align-items:center;gap:11px;}
+.stat>div{min-width:0}.stat-icon{display:flex!important;width:52px;min-width:52px;height:52px;align-items:center;justify-content:center;border-radius:14px;font-size:28px!important;font-weight:900;margin:0!important}
+.stat span:not(.stat-icon){font-size:12px;}.stat b{font-size:25px;margin-top:4px}
+.today-reference{padding-top:15px}.today-table{min-width:760px}.today-table th{font-weight:900;border-bottom:1px solid transparent}.today-table td{border-bottom:1px solid transparent;padding:8px 9px}
+.status-pill{display:inline-block;min-width:96px;text-align:center;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:900}.cal-head{border-right-color:transparent;border-bottom-color:transparent}
+
+.float-note{position:absolute;z-index:5;pointer-events:none;text-align:center;font-size:22px;line-height:1.02;font-weight:800;padding:13px 15px 14px;border-radius:24px 30px 28px 35px;transform:rotate(-6deg)}
+.float-note span{font-size:27px}.note-top-right{right:9px;top:6px}.note-bottom-right{right:-2px;bottom:-8px;transform:rotate(-8deg);font-size:19px}
+.float-leaves{position:absolute;z-index:4;pointer-events:none;font-size:86px;line-height:1;opacity:.82}.leaves-top{right:12px;top:150px;transform:rotate(-18deg)}
+.dashboard-page{position:relative}
+@media(max-width:1200px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.float-note{display:none}.float-leaves{display:none}.hero-note{margin-right:45px}}
+@media(max-width:900px){.app{grid-template-columns:1fr;padding:8px}.sidebar{padding:14px}.sidebar-inspiration{display:none}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.clock{min-width:0}.hero-note{display:none}.hero-reference{min-height:90px}}
+@media(max-width:560px){.stats{grid-template-columns:1fr}.title{font-size:30px}.brand h1{font-size:31px}.hero-reference h2{font-size:24px}.panel{padding:13px}.teacher-photo,.photo-placeholder{height:230px}}
+.app{position:relative;z-index:1}
+.sidebar{
+  border:1px solid transparent;
+
+}
+.brand{border-radius:20px;padding:5px 5px 10px}
+.brand h1{
+  
+  font-size:39px;
+  line-height:1;
+  letter-spacing:-1.3px;
+}
+.teacher-card{border:4px solid transparent;}
+.nav{gap:7px}
+.nav button{
+  border:1px solid transparent;
+}
+.nav button:hover{transform:translateX(1px)}
+.nav button.active{border:2px solid transparent;}
+main{
+  border:1px solid transparent;
+}
+.title{font-family:"Comic Sans MS","Trebuchet MS",cursive}
+.stats{gap:10px}
+.stat{border:1px solid transparent;}
+th,.today-table th{border-bottom-color:transparent}
+td,.today-table td{border-bottom-color:transparent}
+.cal-head{border-right-color:transparent;border-bottom-color:transparent}
+@media(max-width:900px){ }
+.app{position:relative;z-index:1}
+.sidebar{
+  border:1px solid transparent;
+
+}
+.brand{border-radius:20px;padding:5px 5px 10px}
+.brand h1{
+  
+  font-size:31px;
+  line-height:1.05;
+  letter-spacing:-1px;
+}
+.teacher-card{border:4px solid transparent;}
+.nav{gap:7px}
+.nav button{border:1px solid transparent;}
+.nav button:hover{transform:translateX(1px)}
+.nav button.active{border:2px solid transparent;}
+main{border:1px solid transparent;}
+.title{font-family:"Comic Sans MS","Trebuchet MS",cursive}.hero-note{display:none}
+.stat{border:1px solid transparent;}
+th,.today-table th{border-bottom-color:transparent}td,.today-table td{border-bottom-color:transparent}.cal-head{border-right-color:transparent;border-bottom-color:transparent}
+
+.float-note,.float-leaves,.leaves-top,.note-top-right,.note-bottom-right{display:none!important}
+.dashboard-page{position:relative;overflow:visible}
+@media(max-width:900px){}
+.sidebar{
+  border:1px solid transparent;
+
+}
+.brand{border-radius:20px;padding:5px 5px 10px}
+.brand h1{
+  
+  font-size:31px;
+  line-height:1.05;
+  letter-spacing:-1px;
+}
+.teacher-card{border:4px solid transparent;}
+.nav{gap:7px}
+.nav button{border:1px solid transparent;}
+.nav button:hover{transform:translateX(1px)}
+.nav button.active{border:2px solid transparent;}
+main{border:1px solid transparent;}
+.title{font-family:"Comic Sans MS","Trebuchet MS",cursive}.hero-note{display:none}
+.stat{border:1px solid transparent;}
+th,.today-table th{border-bottom-color:transparent}td,.today-table td{border-bottom-color:transparent}.cal-head{border-right-color:transparent;border-bottom-color:transparent}
+@media(max-width:900px){}
+th{border-bottom-color:transparent}td{border-bottom-color:transparent}.cal-head{border-right-color:transparent;border-bottom-color:transparent}
+@media(max-width:900px){}
+.records-student-search .stat{min-height:76px}
+body{
+  font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;
+
+}
+.app{grid-template-columns:315px minmax(0,1fr);gap:16px;padding:13px 16px 16px;min-height:100vh}
+.sidebar{
+  position:relative;overflow:hidden;
+  border:1px solid transparent;border-radius:22px;padding:14px 16px;
+
+}
+.brand{padding:3px 0 8px;text-align:center}
+.brand h1{
+  margin:6px 0 8px;
+  font-size:45px;line-height:.9;letter-spacing:-1.5px;font-weight:700;}
+.brand h1::after{content:"♥";font-family:Arial,sans-serif;font-size:29px;margin-left:6px;vertical-align:top;position:relative;top:-3px}
+.brand p{border-radius:999px;padding:7px 20px;margin:0;font-size:14px;font-weight:900;}
+.teacher-card{border:4px solid transparent;border-radius:20px;padding:7px;}
+.teacher-photo,.photo-placeholder{height:195px;width:100%;border-radius:14px;object-fit:cover}
+.photo-placeholder{font-size:64px;font-family:"Trebuchet MS",sans-serif}
+.bible-verse{margin:8px 5px 4px;text-align:center;line-height:1.05}
+.bible-verse strong{display:none}.bible-verse span{font-size:23px;font-weight:700;}
+.bible-verse span::after{content:" ♥";font-family:Arial,sans-serif;font-size:23px}
+.photo-actions{gap:7px;margin-top:8px}.photo-actions button{min-height:44px;border-radius:10px;border:1px solid transparent;font-weight:900}
+.nav{gap:6px;padding-top:5px}.nav button{border:1px solid transparent;border-radius:999px;font-size:16px;padding:9px 15px;font-weight:900;transition:.15s ease}
+.nav button:hover{transform:translateX(1px);}
+.nav button.active{border:2px solid transparent;}
+.sidebar-inspiration{position:absolute;left:0;right:0;bottom:0;height:205px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;padding:8px 20px 18px}
+.inspiration-lines{font-size:25px;line-height:.96;transform:rotate(-5deg);z-index:2;text-align:center;}
+.inspiration-heart{font-size:33px;transform:rotate(12deg);margin:0 0 12px 7px;z-index:2}.leaf-deco{position:absolute;left:-16px;bottom:-29px;font-size:125px;transform:rotate(-25deg);opacity:.72;z-index:1}
+.sidebar::after{content:"";position:absolute;left:-12px;bottom:-22px;width:150px;height:85px;border-radius:50%;transform:rotate(-8deg)}
+main{border:1px solid transparent;border-radius:24px;padding:14px 16px 20px;}
+.top{padding:3px 12px 13px}.title{font-size:43px;line-height:.95;letter-spacing:-1px;margin:0}.title::after{content:" 🌿";font-family:"Segoe UI Emoji","Apple Color Emoji",sans-serif;font-size:30px;}.sub{font-size:15px;margin:5px 0}
+.clock{min-width:300px;border:1px solid transparent;border-radius:17px;padding:11px 16px;}.clock strong{font-size:18px}
+.panel{border:1px solid var(--jg-border);border-radius:20px;padding:15px 18px;margin-bottom:14px;}
+.hero-reference{min-height:96px;padding:14px 24px;gap:15px;}.hero-reference::before{content:"";position:absolute;left:17px;top:20px;width:42px;height:70px;border-left:7px solid transparent;border-radius:70% 0 70% 0;transform:rotate(-23deg);opacity:.7}.hero-reference::after{content:"";position:absolute;left:35px;top:43px;width:28px;height:12px;border-radius:100% 0 100% 0;transform:rotate(-33deg);}.hero-sun{visibility:hidden;width:58px}.hero-copy{margin-left:36px}.hero-reference h2{font-family:"Trebuchet MS",Arial,sans-serif;font-size:30px;font-weight:900}
+.overview-reference{padding-top:12px}.section-heading{gap:9px}.section-heading h2{font-family:"Trebuchet MS",Arial,sans-serif;font-size:27px;font-weight:900}.section-icon{font-size:31px}.today-heading .section-icon{font-size:34px}.badge{border:1px solid transparent;padding:7px 14px;font-size:13px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.stat{min-height:86px;border:1px solid transparent;border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;}.stat>div{min-width:0}.stat-icon{width:51px;min-width:51px;height:51px;border-radius:14px;font-size:27px!important;display:flex!important;align-items:center;justify-content:center;}.stat span:not(.stat-icon){font-size:12px;}.stat b{font-size:24px;margin-top:4px}
+.today-table{min-width:760px}.today-table th{font-weight:900;border-bottom:1px solid transparent}.today-table td{border-bottom:1px solid transparent;padding:8px 9px}td{border-bottom-color:transparent}.cal-head{border-right-color:transparent;border-bottom-color:transparent}
+@media(max-width:1200px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.sidebar-inspiration{height:170px}.inspiration-lines{font-size:22px}}
+@media(max-width:900px){.app{grid-template-columns:1fr;padding:8px}.sidebar{padding:14px}.sidebar-inspiration{display:none}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.clock{min-width:0}.hero-note{display:none}.hero-reference{min-height:90px}.hero-copy{margin-left:25px}}
+@media(max-width:560px){.stats{grid-template-columns:1fr}.title{font-size:31px}.brand h1{font-size:38px}.hero-reference h2{font-size:24px}.panel{padding:13px}.teacher-photo,.photo-placeholder{height:230px}}
+
+
+
+.sidebar{position:relative;z-index:20}
+.nav{position:relative;z-index:30;pointer-events:auto}
+.nav button{position:relative;z-index:31;pointer-events:auto;cursor:pointer}
+
+.extra-paid-amount{font-weight:800;display:inline-block;padding:3px 8px;border-radius:8px;}.extra-payment-tab{border:1px solid transparent}
+
+.status-picker{
+  font-weight:800;
+  transition:background .15s ease,color .15s ease,border-color .15s ease;
+}
+.brand{border-radius:20px}
+.nav button.active{border:2px solid transparent}
+th{border-bottom-color:transparent}
+td{border-bottom-color:transparent}
+.cal-head{border-right-color:transparent;border-bottom-color:transparent}
+@media(max-width:900px){}.nav button.active{border:2px solid transparent!important}
+
+
+
+
+html,body,button,input,select,textarea,
+h1,h2,h3,h4,h5,h6,.brand,.brand h1,.title,
+.nav,.card,.panel,.modal,.toast,table,.calendar,
+.event,.badge,.status-pill,.stat,.hero,.hero-reference,
+.profile-card,.quote,label,.field,.btn,.tab,.clock,
+.bible-verse,.inspiration-lines,.hero-note{
+  font-family:'Amsterdam One',sans-serif !important;
+}
+.field:focus,input:focus,select:focus,textarea:focus{
+
+  outline:none !important;
+}
+th{
+
+  border-bottom-color:transparent !important;
+}
+td{border-bottom-color:transparent !important}
+
+
+.brand h1,.title,.hero-reference h2,.section-heading h2{
+  font-family:'Amsterdam One',sans-serif !important;
+}
+.nav button.active{border:2px solid var(--dp)!important}
+th{border-bottom-color:var(--bd)!important}
+td{border-bottom-color:transparent!important}
+
+
+.calendar-wrap .cal-head,
+.calendar-wrap .calendar > .cal-head {
+
+  border-right-color:transparent !important;
+  border-bottom-color:transparent !important;
+  font-weight:900 !important;
+}
+
+.monthly-payment-details-table{min-width:1100px}
+.payment-status-badge{display:inline-block;min-width:78px;text-align:center;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:900;border:1px solid transparent;}
+
+
+.payment-information-table{min-width:1250px}
+.payment-link-buttons{display:flex;gap:4px;flex-wrap:wrap}
+.payment-link-buttons .mini{font-size:10px;padding:5px 7px;margin:0}
+.payment-due{font-weight:900;}
+.payment-outstanding{font-weight:900;}
+.payment-type-badge{display:inline-block;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900;border:1px solid transparent}
+.payment-linked-box{margin-top:4px;font-size:11px;}
+
+.unpaid-outstanding{display:block;margin-top:5px;font-size:11px;font-weight:900;white-space:nowrap}
+
+.payment-exact-due{font-weight:900;white-space:nowrap}
+.exact-due-note{font-size:11px;margin-top:4px;display:block}
+.brand h1{font-weight:400 !important;letter-spacing:-.5px !important;}
+
+.contract-exact-due-box{border:2px solid transparent !important;padding:10px !important;border-radius:12px !important;}
+
+.status-edit-hint{font-size:12px;font-weight:800;margin-top:5px;}
+
+input[name="amountDue"]{font-weight:900 !important;border:2px solid transparent !important;}
+body{
+
+  min-height:100vh;
+}
+
+
+body::before{
+  content:"♥";
+  position:fixed;
+  right:18px;
+  top:18px;
+  z-index:0;
+  pointer-events:none;
+  font-size:32px;
+  transform:rotate(12deg);
+}
+body::after{
+  content:"❧";
+  position:fixed;
+  right:20px;
+  bottom:8px;
+  z-index:0;
+  pointer-events:none;
+  font-size:70px;
+  transform:rotate(-18deg);
+}
+.app{position:relative;z-index:1}
+
+
+.app{
+  grid-template-columns:340px minmax(0,1fr)!important;
+  gap:16px!important;
+  padding:12px 14px 16px!important;
+}
+
+
+.sidebar{
+  border:1px solid transparent!important;
+  border-radius:24px!important;
+  padding:14px 18px!important;
+
+}
+
+
+.brand{
+  border-radius:20px!important;
+  padding:4px 4px 9px!important;
+}
+.brand h1{
+  
+  font-size:42px!important;
+  font-weight:400!important;
+  line-height:1!important;
+  letter-spacing:-1px!important;
+  margin:8px 0 9px!important;
+}
+.brand h1::after{
+  content:"♥"!important;
+  font-size:25px!important;
+  margin-left:6px!important;
+  transform:rotate(10deg) translateY(-7px)!important;
+}
+.brand p{
+
+  border:1px solid transparent!important;
+  border-radius:999px!important;
+  padding:8px 21px!important;
+  margin:2px 0 1px!important;
+  font-size:15px!important;
+  font-weight:900!important;
+}
+
+
+.teacher-card{
+  border:4px solid transparent!important;
+  border-radius:22px!important;
+  padding:7px!important;
+
+}
+.teacher-photo,.photo-placeholder{
+  height:205px!important;
+  border-radius:16px!important;
+}
+.bible-verse{
+  margin:9px 5px 5px!important;
+}
+.bible-verse strong{display:none!important}
+.bible-verse span{
+  font-size:18px!important;
+  font-weight:800!important;
+  line-height:1.12!important;
+}
+.bible-verse span::after{
+  content:"  ♥"!important;
+  font-size:21px!important;
+}
+
+
+.photo-actions{gap:7px!important;margin-top:9px!important}
+.photo-actions button{
+  min-height:45px!important;
+  border-radius:11px!important;
+  border:1px solid transparent!important;
+
+  font-weight:800!important;
+}
+
+
+.nav{gap:7px!important;padding-top:4px!important}
+.nav button{
+  border:1px solid transparent!important;
+  border-radius:999px!important;
+  font-size:16px!important;
+  padding:10px 17px!important;
+  font-weight:900!important;
+
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease!important;
+}
+.nav button:hover{
+
+  transform:translateX(1px)!important;
+}
+.nav button.active{
+
+  border:1px solid transparent!important;
+}
+
+
+main{
+  border:1px solid transparent!important;
+  border-radius:25px!important;
+  padding:15px 16px 20px!important;
+}
+
+
+.top{padding:2px 13px 14px!important;align-items:center!important}
+.title{
+  
+  font-size:38px!important;
+  line-height:1!important;
+  letter-spacing:-.5px!important;
+  margin:0!important;
+}
+.title::after{
+  content:" ♥"!important;
+  font-size:28px!important;
+}
+.sub{font-size:15px!important}
+.clock{
+  min-width:355px!important;
+  border:1px solid transparent!important;
+  border-radius:18px!important;
+  padding:12px 18px!important;
+
+}
+.clock small{font-size:14px!important;font-weight:700!important}
+.clock strong{font-size:18px!important}
+
+
+.panel{
+  border:1px solid transparent!important;
+  border-radius:22px!important;
+  padding:16px 20px!important;
+  margin-bottom:15px!important;
+}
+
+
+.hero,.hero-reference{
+  border:1px solid transparent!important;
+  border-radius:20px!important;
+}
+.hero-reference{min-height:96px!important;padding:15px 26px!important}
+.badge{
+  border:1px solid transparent!important;
+}
+
+
+.stats{gap:10px!important}
+.stat{
+  border:1px solid transparent!important;
+  border-radius:15px!important;
+}
+.stat>div{min-width:0}
+
+
+.table{border-radius:12px}
+th{
+
+  border-bottom:1px solid transparent!important;
+  font-weight:900!important;
+}
+td{border-bottom:1px solid transparent!important}
+.today-table th{
+
+  border-bottom:1px solid transparent!important;
+}
+.today-table td{border-bottom:1px solid transparent!important}
+
+
+.calendar-wrap{
+  border-radius:15px!important;
+}
+.cal-head{
+
+  border-right-color:transparent!important;
+  border-bottom-color:transparent!important;
+}
+.event-action{
+
+  border:1px solid transparent!important;
+}
+.modal{
+  border:1px solid transparent!important;
+}
+
+
+.dashboard-page{position:relative}
+.dashboard-page::after{
+  content:"";
+  position:absolute;
+  right:8px;
+  bottom:4px;
+  width:78px;
+  height:110px;
+  opacity:.26;
+  pointer-events:none;
+  transform:rotate(-12deg);
+}
+
+
+@media(max-width:1200px){
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:900px){
+  .app{grid-template-columns:1fr!important;padding:8px!important}
+  .sidebar{padding:14px!important}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .clock{min-width:0!important}
+}
+@media(max-width:560px){
+  .stats{grid-template-columns:1fr}
+  .title{font-size:30px!important}
+  .brand h1{font-size:32px!important}
+  .panel{padding:13px!important}
+  .teacher-photo,.photo-placeholder{height:230px!important}
+}
+
+
+main:has(.calendar-wrap) {
+  border:1px solid transparent !important;
+  border-radius:22px !important;
+}
+
+main:has(.calendar-wrap) .top{
+  padding:2px 8px 14px !important;
+  align-items:flex-start !important;
+}
+main:has(.calendar-wrap) .title{
+  font-family:"Trebuchet MS","Segoe UI",sans-serif !important;
+  font-size:32px !important;
+  font-weight:900 !important;
+  letter-spacing:-.5px !important;
+  position:relative;
+}
+main:has(.calendar-wrap) .title::before{
+  content:"❧";
+  font-size:28px;
+  margin-right:9px;
+  vertical-align:2px;
+}
+main:has(.calendar-wrap) .title::after{
+  content:" ♥";
+  font-size:28px;
+  vertical-align:1px;
+}
+main:has(.calendar-wrap) .sub{
+  font-size:14px !important;
+  margin-top:4px !important;
+}
+main:has(.calendar-wrap) .clock{
+  border:1px solid transparent !important;
+  border-radius:18px !important;
+  min-width:330px !important;
+  padding:10px 16px !important;
+}
+main:has(.calendar-wrap) .clock strong{font-size:18px !important}
+
+main:has(.calendar-wrap) .panel{
+  border:1px solid transparent !important;
+  border-radius:22px !important;
+  padding:14px 16px 16px !important;
+}
+main:has(.calendar-wrap) .toolbar{
+  margin-bottom:14px !important;
+}
+main:has(.calendar-wrap) .toolbar .ghost,
+main:has(.calendar-wrap) .toolbar .secondary{
+
+  border:1px solid transparent !important;
+  border-radius:11px !important;
+  padding:10px 15px !important;
+}
+main:has(.calendar-wrap) .toolbar .primary{
+
+  border:1px solid transparent !important;
+  border-radius:11px !important;
+  padding:10px 17px !important;
+}
+
+main:has(.calendar-wrap) .calendar-wrap{
+  border:0 !important;
+  border-radius:16px !important;
+  max-height:calc(100vh - 300px) !important;
+  min-height:560px !important;
+  overflow:auto !important;
+  scrollbar-color:transparent transparent;
+}
+main:has(.calendar-wrap) .calendar{
+  grid-template-columns:86px repeat(7,minmax(150px,1fr)) !important;
+  min-width:1220px !important;
+  border:1px solid transparent !important;
+  border-radius:12px !important;
+}
+main:has(.calendar-wrap) .cal-head{
+  height:75px !important;
+  padding:9px 4px !important;
+
+  border-right:1px solid transparent !important;
+  border-bottom:1px solid transparent !important;
+  font-size:16px !important;
+  line-height:1.25 !important;
+}
+main:has(.calendar-wrap) .cal-head:first-child{
+
+  font-size:16px !important;
+}
+main:has(.calendar-wrap) .cal-head small{
+  font-size:11px !important;
+}
+main:has(.calendar-wrap) .time-label{
+  height:43px !important;
+  padding:10px 4px !important;
+
+  border-right:1px solid transparent !important;
+  border-bottom:1px solid transparent !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+  line-height:1.15 !important;
+}
+main:has(.calendar-wrap) .cell{
+  height:43px !important;
+  padding:2px !important;
+  border-right:1px solid transparent !important;
+  border-bottom:1px solid transparent !important;
+}
+
+
+main:has(.calendar-wrap) .event{
+  border-radius:10px !important;
+  padding:5px 47px 4px 7px !important;
+  margin:1px 0 !important;
+
+  font-size:12px !important;
+}
+main:has(.calendar-wrap) .cal-event-name{
+  font-size:13px !important;
+  font-weight:900 !important;
+}
+main:has(.calendar-wrap) .cal-event-status{
+  display:block !important;
+  font-size:11px !important;
+  line-height:1.15 !important;
+  margin-top:2px !important;
+}
+main:has(.calendar-wrap) .event-actions{top:6px !important;right:5px !important}
+main:has(.calendar-wrap) .event-action{
+
+  border:1px solid transparent !important;
+  border-radius:5px !important;
+  font-size:9px !important;
+  padding:3px 5px !important;
+}
+
+@media(max-width:900px){
+  main:has(.calendar-wrap) .clock{min-width:250px !important}
+  main:has(.calendar-wrap) .calendar{min-width:1160px !important}
+}
+body{
+
+  min-height:100vh;
+}
+body::before{
+  content:"♥";position:fixed;right:20px;top:16px;z-index:0;pointer-events:none;font-size:34px;transform:rotate(12deg)
+}
+body::after{
+  content:"❧";position:fixed;right:16px;bottom:5px;z-index:0;pointer-events:none;font-size:78px;transform:rotate(-16deg)
+}
+.app{position:relative;z-index:1;gap:10px!important;padding:10px!important;}
+
+
+.sidebar{
+  border:1px solid transparent!important;
+  border-radius:18px!important;
+
+  overflow:hidden!important;
+}
+.brand h1{
+  
+  font-size:42px!important;
+  line-height:1.02!important;
+  letter-spacing:-1.2px!important;
+}
+.brand p{
+  display:inline-block!important;
+
+  border-radius:999px!important;
+  padding:8px 22px!important;
+  font-weight:900!important;
+  margin-top:8px!important;
+}
+.teacher-card{
+  border:3px solid transparent!important;
+  border-radius:22px!important;
+}
+.teacher-photo,.photo-placeholder{
+  border-radius:18px!important;
+  border:0!important;
+}
+.photo-actions button{border:1px solid transparent!important;
+  border-radius:11px!important;font-weight:900!important;
+}
+.nav{gap:7px!important}
+.nav button{
+
+  border:1px solid transparent!important;
+  border-radius:999px!important;
+  font-weight:900!important;
+}
+
+
+main{
+  border:1px solid transparent!important;
+  border-radius:20px!important;
+
+}
+.top{padding:4px 10px 12px!important}
+.title{
+  font-family:"Trebuchet MS","Segoe UI",sans-serif!important;
+  font-weight:900!important;
+  letter-spacing:-.8px!important;
+}
+.title::after{content:" ♥"!important;}
+.clock{
+  border:1px solid transparent!important;
+  border-radius:17px!important;
+}
+
+
+.panel,.dashboard-page .panel{
+  border:1px solid transparent!important;
+  border-radius:18px!important;
+}
+
+
+.stats .stat,.stat{
+  border:1px solid transparent!important;
+  border-radius:15px!important;
+}
+
+
+button.primary,.primary{
+  border-radius:11px!important;font-weight:900!important;
+}
+button.secondary,.secondary{
+  border-radius:11px!important;font-weight:900!important;
+}
+button.ghost,.ghost{
+  border-radius:11px!important;font-weight:900!important;
+}
+button.danger,.danger{border-radius:9px!important}
+
+
+.field,input,select,textarea{
+  border-radius:9px!important;
+}
+.field:focus,input:focus,select:focus,textarea:focus{outline:none!important;
+}
+main:has(.calendar-wrap) .calendar-wrap{scrollbar-color:transparent transparent!important}
+main:has(.calendar-wrap) .cal-head{border-right-color:transparent!important;border-bottom-color:transparent!important;
+  font-weight:900!important;
+}
+main:has(.calendar-wrap) .time-label{font-weight:900!important;
+}
+
+
+main:has(.calendar-wrap) .event{border-radius:9px!important;}
+
+
+.dashboard-page::after{
+  content:"";position:absolute;right:7px;bottom:3px;width:86px;height:118px;opacity:.20;pointer-events:none;
+  transform:rotate(-12deg)
+}
+
+@media(max-width:1200px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.app{grid-template-columns:1fr!important;padding:8px!important}.sidebar{padding:14px!important}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.clock{min-width:0!important}}
+@media(max-width:560px){.stats{grid-template-columns:1fr}.title{font-size:30px!important}.brand h1{font-size:34px!important}.panel{padding:13px!important}.teacher-photo,.photo-placeholder{height:230px!important}}
+
+html, body, button, input, select, textarea, table, th, td, .brand, .nav, .panel, .card, .calendar, .cal-head, .time-label, .cell, .event {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+  
+  .brand,
+  .branding,
+  .brand-name,
+  .logo-text,
+  .profile-brand,
+  header .brand,
+  header .branding {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-style: normal !important;
+  }
+
+  
+  html, body, body *,
+  button, input, select, textarea,
+  h1, h2, h3, h4, h5, h6,
+  p, span, div, label, a,
+  table, th, td,
+  .brand, .branding, .brand-name, .logo-text,
+  .profile-brand, header, header * {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-style: normal !important;
+  }
+body{
+  margin:0!important;
+  font-family:'Poppins','Trebuchet MS',Arial,sans-serif!important;
+  min-height:100vh;
+}
+button,input,select,textarea{font-family:'Poppins','Trebuchet MS',Arial,sans-serif!important}
+
+
+.app{
+  grid-template-columns:332px minmax(0,1fr)!important;
+  gap:16px!important;
+  padding:12px 14px 14px!important;
+}
+
+
+.sidebar{
+
+  border:1px solid transparent!important;
+  border-radius:24px!important;
+}
+.brand{text-align:center!important}
+.brand h1{
+  
+  font-size:42px!important;
+  font-weight:700!important;
+  letter-spacing:.1px!important;
+  line-height:1!important;
+}
+.brand h1::after{content:' ♥';font-family:'Poppins',sans-serif;font-size:22px;vertical-align:middle}
+.brand p{
+
+  border-radius:999px!important;
+  border:0!important;
+  padding:9px 22px!important;
+  font-weight:800!important;
+}
+.teacher-card{
+
+  border:1px solid transparent!important;
+  border-radius:22px!important;
+}
+.teacher-photo,.photo-placeholder{
+  border:4px solid transparent!important;
+  border-radius:18px!important;
+}
+.bible-verse{font-family:'Poppins',sans-serif!important}
+.bible-verse strong{font-weight:800!important}
+.photo-actions button{
+  border:1px solid transparent!important;
+
+  border-radius:12px!important;
+}
+.nav{gap:6px!important}
+.nav button{
+
+  border:1px solid transparent!important;
+  border-radius:999px!important;
+  padding:11px 16px!important;
+  font-weight:800!important;
+}
+
+
+main{
+  border:1px solid transparent!important;
+  border-radius:26px!important;
+
+}
+.top{padding:4px 8px 15px!important}
+.title,.panel h1,.panel h2,.panel h3,.panel h4{
+  font-family:'Poppins',sans-serif!important;
+}
+.title{font-weight:800!important;letter-spacing:-.6px}
+.clock{
+  border:1px solid var(--green-line)!important;
+  border-radius:18px!important;
+}
+
+
+.panel{
+  border:1px solid var(--green-line)!important;
+  border-radius:20px!important;
+}
+.primary,.secondary,.ghost,.danger{
+  border-radius:12px!important;
+  font-weight:800!important;
+}
+
+.stats{gap:10px!important}
+.stat{
+  border:1px solid var(--green-line)!important;
+  border-radius:15px!important;
+}
+
+
+.table{border-radius:14px}
+th,td{border-bottom-color:var(--green-line-2)!important}
+
+
+.calendar-wrap{
+  border-radius:18px!important;
+  border:1px solid var(--green-line)!important;
+}
+.calendar{
+  border-radius:14px!important;
+}
+.cal-head{
+
+  border-right-color:transparent!important;
+  border-bottom-color:transparent!important;
+  font-family:'Poppins',sans-serif!important;
+}
+
+.calendar .time-label{
+
+  border-right-color:var(--green-line)!important;
+  border-bottom-color:var(--green-line)!important;
+}
+.calendar .cell{
+  border-right-color:var(--green-line-2)!important;
+  border-bottom-color:var(--green-line-2)!important;
+}
+.event{
+  border-radius:10px!important;
+  font-family:'Poppins',sans-serif!important;
+}
+.event-action{border:1px solid transparent!important}
+
+
+.calendar-wrap + * button,
+.toolbar button{font-family:'Poppins',sans-serif!important}
+.modal{border:1px solid var(--green-line)!important;border-radius:20px!important;}
+
+
+main::before{
+  content:'❧';
+  position:absolute;
+  right:20px;
+  bottom:8px;
+  font-size:70px;
+  pointer-events:none;
+  transform:rotate(-15deg);
+}
+
+
+/* =========================================================
+   HARISSE ENGLISH ACADEMY — ATTACHED REFERENCE DESIGN
+   Visual theme only. Application logic and features are retained.
+   ========================================================= */
+:root{
+  --hot-pink:#ec1766;
+  --hot-pink-2:#f72c7b;
+  --pink:#ffb7d2;
+  --pink-2:#f7c7dc;
+  --powder-pink:#fde3ee;
+  --light-pink:#fff0f6;
+  --pale-pink:#fff7fb;
+  --white:#ffffff;
+  --navy:#1d2940;
+  --navy-2:#273650;
+  --line:#f3c9dc;
+  --line-2:#f7dce8;
+  --muted:#56627a;
+  --danger:#d94b68;
+  --shadow:0 12px 30px rgba(147,29,79,.12);
+  --deep-shadow:0 18px 45px rgba(147,29,79,.16);
+  /* Legacy variable aliases kept so existing layout rules remain functional. */
+  --teal:var(--hot-pink-2);--teal2:var(--hot-pink);--cyan:var(--light-pink);
+  --pink:var(--hot-pink-2);--pink2:var(--pink);--cream:var(--pale-pink);
+  --raspberry:var(--hot-pink);--mint:var(--powder-pink);--sage:var(--powder-pink);
+  --baby-blue:var(--light-pink);--baby-blue-border:var(--line);--baby-blue-dark:var(--hot-pink);
+  --baby-blue-light:var(--pale-pink);--purple:var(--pink);--purple-dark:var(--hot-pink);
+  --purple-light:var(--powder-pink);--forest:var(--navy);--forest-deep:var(--navy);
+  --forest-2:var(--navy-2);--emerald:var(--hot-pink);--green-line:var(--line);
+  --green-line-2:var(--line-2);--text-green:var(--navy);--muted-green:var(--muted);
+  --main-peach:var(--pink);--main-peach-light:var(--light-pink);--main-peach-deep:var(--pink-2);
+  --ref-bg:var(--pale-pink);--ref-danger:var(--danger);--ref-muted:var(--muted);
+  --ref-navy:var(--navy);--ref-peach:var(--pink);--ref-pink:var(--hot-pink-2);
+  --ref-pink-soft:var(--powder-pink);--ref-rose:var(--hot-pink-2);--ref-rose-dark:var(--hot-pink);
+  --ref-text:var(--navy);--jg-border:var(--line);--jg-green:var(--hot-pink);
+  --jg-green-dark:var(--hot-pink);--jg-navy:var(--navy);--jg-pink-deep:var(--hot-pink);
+  --ink:var(--navy);--txt:var(--navy);--bd:var(--line);--dp:var(--pink);--dp2:var(--hot-pink);
+  --lp:var(--light-pink);--lpx:var(--powder-pink);
+}
+
+html{
+  background:var(--pink);
+  min-height:100%;
+}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--navy);
+  font-family:Arial,Helvetica,sans-serif !important;
+  font-style:normal !important;
+  background:
+    radial-gradient(circle at 3% 5%,rgba(255,255,255,.72) 0 9%,transparent 27%),
+    radial-gradient(circle at 96% 7%,rgba(255,183,210,.46) 0 10%,transparent 28%),
+    linear-gradient(135deg,#ffb7d2 0%,#ffdbea 42%,#fff0f6 100%);
+}
+body *{
+  font-family:Arial,Helvetica,sans-serif !important;
+  font-style:normal !important;
+}
+button,input,select,textarea{font-family:Arial,Helvetica,sans-serif !important}
+.app{
+  grid-template-columns:332px minmax(0,1fr);
+  gap:16px;
+  padding:14px 16px 16px;
+}
+.app,.sidebar,main,.panel,.hero,.calendar-wrap{position:relative}
+
+/* Sidebar */
+.sidebar{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,255,255,.62),transparent 23%),
+    linear-gradient(180deg,#ffdbea 0%,#ffd1e3 52%,#ffbfd8 100%);
+  border:1px solid rgba(255,255,255,.95) !important;
+  border-radius:23px;
+  padding:15px 18px;
+  color:var(--navy);
+  box-shadow:var(--deep-shadow) !important;
+  overflow:hidden;
+}
+.sidebar::before{
+  content:"";
+  position:absolute;
+  top:24px;
+  left:28px;
+  width:54px;
+  height:27px;
+  border-radius:65% 25% 65% 25%;
+  background:var(--hot-pink) !important;
+  transform:rotate(-13deg);
+  box-shadow:30px 9px 0 -2px var(--pink-2);
+  pointer-events:none;
+}
+.sidebar::after{
+  content:"♥";
+  position:absolute;
+  right:18px;
+  top:84px;
+  color:#f39ab9 !important;
+  font-size:34px;
+  transform:rotate(14deg);
+  pointer-events:none;
+}
+.brand{
+  background:transparent !important;
+  padding:2px 0 8px;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.brand h1{
+  font-size:39px !important;
+  line-height:.98;
+  letter-spacing:-1.2px;
+  color:var(--hot-pink) !important;
+  text-shadow:0 2px 0 rgba(255,255,255,.72) !important;
+  margin:48px 0 8px;
+  font-weight:900;
+}
+.brand h1 .brand-pink{color:var(--hot-pink) !important}
+.brand h1 .brand-navy{color:var(--navy) !important}
+.brand h1::after{content:none !important}
+.brand-ribbon{
+  position:relative;
+  display:block;
+  width:150px;
+  height:18px;
+  margin:-2px auto 7px;
+  background:var(--hot-pink-2);
+  border-radius:4px;
+  box-shadow:0 3px 7px rgba(147,29,79,.12);
+}
+.brand-ribbon::before,.brand-ribbon::after{
+  content:"";
+  position:absolute;
+  top:0;
+  width:30px;
+  height:28px;
+  background:var(--hot-pink);
+  z-index:-1;
+}
+.brand-ribbon::before{
+  left:-21px;
+  clip-path:polygon(100% 0,0 0,35% 50%,0 100%,100% 100%,72% 50%);
+  transform:rotate(-2deg);
+}
+.brand-ribbon::after{
+  right:-21px;
+  clip-path:polygon(0 0,100% 0,65% 50%,100% 100%,0 100%,28% 50%);
+  transform:rotate(2deg);
+}
+.brand-ribbon span{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#fff;
+  border:4px solid var(--hot-pink);
+  box-shadow:0 2px 5px rgba(147,29,79,.10);
+}
+.brand p{
+  display:inline-block;
+  background:var(--hot-pink-2) !important;
+  color:#fff !important;
+  border-radius:999px;
+  padding:8px 22px;
+  margin:2px 0 1px;
+  font-size:15px;
+  font-weight:900;
+  box-shadow:0 3px 8px rgba(147,29,79,.10) !important;
+}
+.teacher-card{
+  background:rgba(255,255,255,.98) !important;
+  border:4px solid #fff !important;
+  border-radius:21px;
+  padding:7px;
+  color:var(--navy);
+  box-shadow:0 8px 22px rgba(147,29,79,.10) !important;
+}
+.teacher-photo,.photo-placeholder{height:195px;border-radius:15px}
+.teacher-photo{background:var(--light-pink) !important}
+.photo-placeholder{
+  background:linear-gradient(135deg,#ffe7f1,#fff7fb) !important;
+  color:var(--hot-pink) !important;
+}
+.bible-verse{color:var(--navy) !important;margin:9px 5px 5px}
+.bible-verse strong{color:var(--hot-pink) !important}
+.bible-verse span{font-size:18px;font-weight:800;line-height:1.12;color:var(--hot-pink) !important}
+.bible-verse span::after{content:"";display:none}
+.photo-actions{gap:7px;margin-top:9px}
+.photo-actions button{
+  min-height:45px;
+  border-radius:11px;
+  border:1px solid #f2b8cf !important;
+  color:var(--hot-pink) !important;
+  background:#fff !important;
+  font-weight:800;
+}
+.photo-actions .upload{
+  background:var(--hot-pink-2) !important;
+  border-color:var(--hot-pink-2) !important;
+  color:#fff !important;
+}
+.nav{gap:7px;padding-top:4px}
+.nav button{
+  color:var(--navy) !important;
+  border:1px solid rgba(255,255,255,.95) !important;
+  border-radius:999px;
+  font-size:16px;
+  padding:10px 17px;
+  font-weight:900;
+  background:#fff !important;
+  box-shadow:0 3px 8px rgba(147,29,79,.07) !important;
+  text-shadow:none !important;
+}
+.nav button:nth-child(1){background:#fff !important}
+.nav button:nth-child(2),
+.nav button:nth-child(3),
+.nav button:nth-child(4),
+.nav button:nth-child(5),
+.nav button:nth-child(6),
+.nav button:nth-child(7){background:var(--light-pink) !important}
+.nav button:hover{transform:translateX(1px);background:#fff !important}
+.nav button.active{
+  background:var(--hot-pink-2) !important;
+  color:#fff !important;
+  border:2px solid var(--hot-pink-2) !important;
+  box-shadow:0 4px 11px rgba(236,23,102,.18) !important;
+}
+.sidebar-inspiration{position:relative;z-index:1}
+.inspiration-lines{color:var(--hot-pink) !important}
+.inspiration-heart{color:#f48eae !important}
+.leaf-deco{color:#f4a5c1 !important}
+.sidebar-note{color:var(--navy) !important}
+
+/* Main shell */
+main{
+  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,248,252,.98)) !important;
+  border:1px solid rgba(255,255,255,.96) !important;
+  border-radius:25px;
+  padding:15px 16px 20px;
+  box-shadow:var(--deep-shadow) !important;
+  min-width:0;
+}
+main::before{
+  content:"❧";
+  position:absolute;
+  right:22px;
+  top:4px;
+  color:rgba(236,23,102,.12) !important;
+  font-size:76px;
+  transform:rotate(-12deg);
+  pointer-events:none;
+}
+main::after{
+  content:"♥";
+  position:absolute;
+  right:18px;
+  bottom:8px;
+  color:rgba(247,44,123,.20) !important;
+  font-size:54px;
+  pointer-events:none;
+}
+.top{padding:2px 13px 14px;align-items:center}
+.title{
+  font-size:40px !important;
+  line-height:1;
+  color:var(--navy) !important;
+  letter-spacing:-1px;
+  margin:0;
+  font-weight:900;
+}
+.title .brand-pink{color:var(--hot-pink) !important}
+.title .brand-navy{color:var(--navy) !important}
+.title::after{content:none !important}
+.sub{color:var(--navy) !important;font-size:15px}
+.clock{
+  min-width:355px;
+  background:linear-gradient(135deg,#fff9fc,#ffeaf3) !important;
+  border:1px solid #f1bfd5 !important;
+  border-radius:18px;
+  padding:12px 18px;
+  box-shadow:0 4px 10px rgba(147,29,79,.06) !important;
+  color:var(--navy) !important;
+}
+.clock small{color:var(--navy) !important;font-size:14px}
+.clock strong{color:var(--navy) !important;font-size:18px}
+
+/* Welcome banner */
+.hero-reference{
+  min-height:96px;
+  background:
+    radial-gradient(circle at 92% 25%,rgba(255,183,210,.42),transparent 22%),
+    linear-gradient(135deg,#fff0f6,#ffddea) !important;
+  border:1px solid #f3c2d8 !important;
+  border-radius:20px;
+  padding:15px 26px;
+  overflow:hidden;
+}
+.hero-reference::after{
+  content:"♥";
+  position:absolute;
+  right:165px;
+  top:8px;
+  color:#f58fb1 !important;
+  font-size:35px;
+  transform:rotate(14deg);
+}
+.hero-sun{
+  font-size:0 !important;
+  width:74px;
+  min-width:74px;
+  height:74px;
+  border-radius:22px;
+  background:#ffe0ec !important;
+  position:relative;
+}
+.hero-sun::before{
+  content:"";
+  position:absolute;
+  left:18px;
+  top:12px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:var(--hot-pink) !important;
+  box-shadow:27px 0 0 var(--hot-pink),13px 20px 0 var(--hot-pink);
+}
+.hero-sun::after{
+  content:"";
+  position:absolute;
+  left:8px;
+  top:37px;
+  width:58px;
+  height:23px;
+  border-radius:18px 18px 7px 7px;
+  background:var(--hot-pink) !important;
+}
+.hero-copy{min-width:0}
+.hero-reference h2{
+  color:var(--hot-pink) !important;
+  font-size:30px;
+  margin:0;
+  font-weight:900;
+}
+.hero-reference .sub{color:var(--navy) !important}
+
+/* Section headings */
+.section-heading{display:flex;align-items:center;gap:10px}
+.section-heading h2{
+  color:var(--hot-pink) !important;
+  font-size:28px;
+  font-weight:900;
+}
+.section-icon{
+  color:var(--hot-pink) !important;
+  font-size:32px;
+  font-weight:900;
+  line-height:1;
+}
+.today-heading .section-icon{font-size:36px}
+.badge{
+  background:var(--hot-pink-2) !important;
+  border:1px solid var(--hot-pink-2) !important;
+  color:#fff !important;
+  border-radius:999px;
+  padding:7px 15px;
+  font-size:13px;
+  font-weight:900;
+}
+
+/* Panels / cards */
+.panel{
+  background:#fff !important;
+  border:1px solid var(--line) !important;
+  border-radius:22px;
+  padding:16px 20px;
+  margin-bottom:15px;
+  box-shadow:0 6px 18px rgba(147,29,79,.07) !important;
+}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{
+  min-height:88px;
+  background:linear-gradient(135deg,#fff0f6,#fff) !important;
+  border:1px solid #f5d2e1 !important;
+  border-radius:15px;
+  padding:11px 13px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  box-shadow:0 3px 9px rgba(147,29,79,.05) !important;
+}
+.stat>div{min-width:0}
+.stat-icon{
+  display:flex !important;
+  width:52px;
+  min-width:52px;
+  height:52px;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  font-size:28px !important;
+  font-weight:900;
+  color:var(--hot-pink) !important;
+  background:#ffe0ec !important;
+  margin:0 !important;
+}
+.stat span:not(.stat-icon){font-size:12px;color:var(--navy) !important}
+.stat b{font-size:25px;color:#111827 !important;margin-top:4px}
+.stat-rose,.stat-peach,.stat-mint,.stat-sky,.stat-lavender,.stat-yellow{
+  background:linear-gradient(135deg,#fff0f6,#fff) !important;
+}
+.stat-rose .stat-icon,.stat-peach .stat-icon,.stat-mint .stat-icon,
+.stat-sky .stat-icon,.stat-lavender .stat-icon,.stat-yellow .stat-icon{
+  background:#ffe0ec !important;
+  color:var(--hot-pink) !important;
+}
+
+/* Buttons */
+.primary,.secondary,.ghost,.danger{border-radius:11px;padding:10px 14px;font-weight:800}
+.primary{
+  background:var(--hot-pink-2) !important;
+  border-color:var(--hot-pink-2) !important;
+  color:#fff !important;
+}
+.secondary{
+  background:var(--powder-pink) !important;
+  border-color:#efb9d0 !important;
+  color:var(--hot-pink) !important;
+}
+.ghost{
+  background:#fff !important;
+  border-color:#efbdd4 !important;
+  color:var(--navy) !important;
+}
+.danger{
+  background:var(--danger) !important;
+  border-color:var(--danger) !important;
+  color:#fff !important;
+}
+.mini{
+  border:1px solid #efbdd4 !important;
+  background:#fff !important;
+  color:var(--navy) !important;
+}
+.mini.del{color:var(--danger) !important}
+.notice{
+  background:#fff0f6 !important;
+  border:1px solid #f3c9dc !important;
+  color:var(--navy) !important;
+}
+
+/* Tables */
+.table{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:720px}
+th,td{border-bottom:1px solid var(--line-2) !important}
+th{
+  background:#ffddea !important;
+  color:var(--hot-pink) !important;
+  font-weight:900;
+}
+td{color:var(--navy) !important}
+tr:hover td{background:#fff7fb !important}
+.badge{box-shadow:none !important}
+.empty{color:#8b6b79 !important}
+
+/* Forms */
+.field{
+  border:1px solid #efbdd4 !important;
+  color:var(--navy) !important;
+  background:#fff !important;
+}
+.field:focus{
+  border-color:var(--hot-pink) !important;
+  box-shadow:0 0 0 3px rgba(236,23,102,.12) !important;
+}
+.profile-item{
+  background:#fff8fb !important;
+  border:1px solid var(--line) !important;
+  color:var(--navy) !important;
+}
+.profile-item small{color:var(--muted) !important}
+.student-photo-box{
+  background:linear-gradient(135deg,#fff5f9,#fff) !important;
+  border:1px solid var(--line) !important;
+}
+.student-photo-placeholder{
+  background:#ffe4ef !important;
+  color:var(--hot-pink) !important;
+}
+.student-photo-actions button{
+  border:1px solid #efbdd4 !important;
+  background:#fff !important;
+  color:var(--hot-pink) !important;
+}
+.student-photo-actions .remove{color:var(--danger) !important}
+
+/* Modals / toast */
+.modal-bg{background:rgba(29,41,64,.48) !important}
+.modal{
+  background:#fff !important;
+  border:1px solid var(--line) !important;
+  color:var(--navy) !important;
+  box-shadow:0 20px 60px rgba(147,29,79,.22) !important;
+}
+.toast{
+  background:var(--hot-pink) !important;
+  color:#fff !important;
+  box-shadow:var(--shadow) !important;
+}
+.toast.error{background:var(--danger) !important}
+
+/* Weekly schedule — same attached pink/navy palette */
+.calendar-wrap{
+  background:#fff !important;
+  border:1px solid var(--line) !important;
+  border-radius:18px;
+}
+.calendar{
+  border:1px solid var(--line) !important;
+  border-radius:14px;
+  background:#fff !important;
+}
+.cal-head{
+  background:var(--hot-pink) !important;
+  color:#fff !important;
+  border-right:1px solid #d80f5d !important;
+  border-bottom:1px solid #d80f5d !important;
+  box-shadow:0 2px 0 #d80f5d !important;
+  font-weight:900;
+}
+.cal-head *{color:inherit !important}
+.time-label{
+  background:#fff4f8 !important;
+  color:var(--navy) !important;
+  border-right:1px solid var(--line) !important;
+  border-bottom:1px solid var(--line) !important;
+}
+.cell{
+  background:#fff !important;
+  border-right:1px solid var(--line-2) !important;
+  border-bottom:1px solid var(--line-2) !important;
+}
+.cell:hover{background:#fff8fb !important}
+.cell.slot-closed{background:#f6e8ef !important}
+.calendar .cal-head.today,
+.calendar .cal-head.current,
+.calendar .cal-head.is-today,
+.calendar .cal-head.today,
+.calendar .cal-head.current-day,
+.calendar .today{
+  background:#f48bb5 !important;
+  color:#fff !important;
+  box-shadow:inset 0 -5px 0 #d80f5d !important;
+}
+.calendar .cal-head.current-day small{
+  display:inline-block;
+  margin-top:3px;
+  padding:2px 7px;
+  border-radius:999px;
+  background:#fff !important;
+  color:#d80f5d !important;
+  font-weight:900 !important;
+}
+.calendar .time-label.current-time{
+  background:#f48bb5 !important;
+  color:#fff !important;
+  font-weight:1000 !important;
+  box-shadow:inset 4px 0 0 #d80f5d !important;
+}
+.calendar .time-label.current-time small{
+  display:inline-block;
+  margin-top:2px;
+  padding:1px 5px;
+  border-radius:999px;
+  background:#fff !important;
+  color:#d80f5d !important;
+  font-size:9px !important;
+  font-weight:1000 !important;
+}
+.calendar .cell.current-slot{
+  background:#fff0f6 !important;
+  box-shadow:inset 0 0 0 2px #f48bb5 !important;
+  z-index:3 !important;
+}
+.calendar .cell.current-slot:before{
+  content:'NOW';
+  position:absolute;
+  top:3px;
+  right:4px;
+  left:auto;
+  z-index:4;
+  font-size:9px;
+  font-weight:1000;
+  border:1px solid #d80f5d;
+  border-radius:999px;
+  padding:2px 6px;
+  background:#f48bb5;
+  color:#fff;
+  pointer-events:none;
+}
+.event{
+  border-radius:10px !important;
+  box-shadow:0 2px 5px rgba(147,29,79,.06) !important;
+  color:var(--navy) !important;
+}
+.event-main{color:var(--navy) !important}
+.event-action{
+  color:var(--hot-pink) !important;
+  border:1px solid #f0c9da !important;
+  background:#fff !important;
+}
+.event-action.delete{color:var(--danger) !important}
+.slot-control.open{background:#ffe4ef !important;color:var(--hot-pink) !important}
+.slot-control.close{background:#ffd9e7 !important;color:var(--hot-pink) !important}
+
+/* Status colors stay inside the pink/navy palette of the attached reference. */
+.event.status-scheduled,.event.scheduled{
+  background:#fff0f6 !important;border-color:#f3c9dc !important;
+}
+.event.status-present,.event.present{
+  background:#f1e3eb !important;border-color:#ddc2d2 !important;
+}
+.event.status-absent,.event.absent{
+  background:#f8cfdc !important;border-color:#eea9bf !important;
+}
+.event.status-cancelled,.event.cancelled{
+  background:#eee1eb !important;border-color:#d9c4d4 !important;
+}
+.event.status-rescheduled,.event.rescheduled{
+  background:#eadfea !important;border-color:#d5bfd0 !important;
+}
+.event.status-no-show,.event.no-show{
+  background:#f5d9df !important;border-color:#e5b8c5 !important;
+}
+.event.status-student-absent-notified,
+.event.status-student-absent,
+.event.student-absent{
+  background:#ffe4ef !important;border-color:#f0bdd2 !important;
+}
+.event.status-teacher-absent-notified,
+.event.status-teacher-absent,
+.event.teacher-absent{
+  background:#f3dce8 !important;border-color:#e2bfd1 !important;
+}
+.calendar .event[style*="ffd0dc"]{background:#f8cfdc !important;border-color:#eea9bf !important}
+
+/* Today's classes */
+.today-table th,
+.dashboard-page .table th,
+.dashboard-page table th{
+  background:#ffddea !important;
+  color:var(--hot-pink) !important;
+}
+.today-table td{border-bottom:1px solid var(--line-2) !important}
+.today-table tr:hover td{background:#fff8fb !important}
+.status-pill{font-weight:900}
+.status-pill.completed{background:#f1e3eb !important;color:var(--hot-pink) !important}
+.status-pill.scheduled{background:#fff0f6 !important;color:var(--hot-pink) !important}
+.status-pill.other{background:#f8ddea !important;color:var(--hot-pink) !important}
+.status-pill.absent{background:#f8cfdc !important;color:var(--hot-pink) !important}
+
+/* Payment / record / report cards */
+.card,.profile-card,.contract-card,.payment-card,.record-card,.payment-linked-box,
+.payment-information-table,.monthly-payment-details-table,.reports-student-search,
+.panel.extra-payment-tab{
+  background:#fff !important;
+  border-color:var(--line) !important;
+}
+.payment-due,.payment-exact-due{
+  color:var(--hot-pink) !important;
+}
+.payment-type-badge,.payment-status-badge{
+  background:#ffe4ef !important;
+  border-color:#efbdd4 !important;
+  color:var(--hot-pink) !important;
+}
+.payment-outstanding{
+  color:var(--hot-pink) !important;
+}
+.contract-exact-due-box{
+  background:#fff0f6 !important;
+  border-color:#efbdd4 !important;
+}
+.exact-due-note{color:var(--navy) !important}
+.progress-bar{background:#ffddea !important}
+.progress{background:var(--hot-pink) !important}
+
+/* Remove any old decorative colors that may survive in legacy selectors. */
+svg{color:var(--hot-pink) !important}
+.icon,.icon-accent{color:var(--hot-pink) !important}
+.float-note{
+  background:#ffe4ef !important;
+  color:var(--hot-pink) !important;
+  border:1px solid #efbdd4 !important;
+}
+.float-note span{color:var(--hot-pink) !important}
+.float-leaves{color:#f19cba !important}
+.note-bottom-right{background:#ffe4ef !important}
+
+/* Responsive behavior */
+@media(max-width:1200px){
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:900px){
+  .app{grid-template-columns:1fr;padding:8px}
+  .sidebar{padding:14px}
+  .sidebar-inspiration{display:none}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .clock{min-width:0}
+}
+@media(max-width:560px){
+  .stats{grid-template-columns:1fr}
+  .title{font-size:30px}
+  .brand h1{font-size:31px}
+  .panel{padding:13px}
+  .teacher-photo,.photo-placeholder{height:230px}
+}
+
+.dashboard-page .top > div:first-child{position:relative}
+.dashboard-page .top > div:first-child::before{
+  content:"";
+  position:absolute;
+  left:-56px;
+  top:2px;
+  width:20px;
+  height:34px;
+  border-radius:60% 60% 45% 45%;
+  background:var(--hot-pink) !important;
+  transform:rotate(-35deg);
+  box-shadow:18px 4px 0 var(--pink-2),9px -12px 0 var(--hot-pink);
+  opacity:.9;
+}
+
+</style>
+<style id="booked-class-text-background-reset">
+/* Remove background fills from text inside booked classes; keep the class/status box background intact. */
+main:has(.calendar-wrap) .event-main,
+main:has(.calendar-wrap) .cal-event-name,
+main:has(.calendar-wrap) .cal-event-status {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><h1><span class="brand-pink">Harisse</span> <span class="brand-navy">English Academy</span></h1><div class="brand-ribbon" aria-hidden="true"><span></span></div><p>Private ESL Tutor</p></div>
+  <div class="teacher-card">
+    <img id="teacherPhoto" class="teacher-photo" alt="Teacher photo" style="display:none">
+    <div id="teacherPhotoPlaceholder" class="photo-placeholder">TC</div>
+    <div class="bible-verse">
+      <span>Be the Best Version<br>of You</span>
+    </div>
+    <div class="photo-actions">
+      <button class="upload" onclick="document.getElementById('teacherPhotoInput').click()">Upload Photo</button>
+      <button onclick="removeTeacherPhoto()">Remove Photo</button>
+      <input id="teacherPhotoInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+    </div>
+  </div>
+  <nav class="nav" id="mainNav">
+    <button type="button" data-view="dashboard" onclick="setView('dashboard')">🏠 Dashboard</button>
+    <button type="button" data-view="students" onclick="setView('students')">👥 Students</button>
+    <button type="button" data-view="teachers" onclick="setView('teachers')">👥 Teachers</button>
+    <button type="button" data-view="schedule" onclick="setView('schedule')">🗓️ Schedule</button>
+    <button type="button" data-view="contracts" onclick="setView('contracts')">📄 Contracts</button>
+    <button type="button" data-view="payments" onclick="setView('payments')">💳 Payments</button>
+    <button type="button" data-view="records" onclick="setView('records')">📚 Records</button>
+    <button type="button" data-view="reports" onclick="setView('reports')">📊 Reports</button>
+  </nav>
+  <div class="sidebar-inspiration">
+    <div class="leaf-deco" aria-hidden="true">❧</div>
+    <div class="inspiration-lines"><span>Be the</span><span>Best Version</span><span>of You</span></div>
+    <div class="inspiration-heart">♥</div>
+  </div>
+</aside>
+<main id="main"></main>
+</div>
+<div id="modal"></div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+const PH="Asia/Manila";
+const KEY="teacher_marc_dashboard_v1";
+const PHOTO_KEY="teacher_marc_teacher_photo_v1";
+const SLOT_KEY="teacher_marc_closed_calendar_slots_v1";
+const CLASS_STATUSES=["Scheduled","Present","Absent","Cancelled","Rescheduled","No Show","Student Absent: Notified","Teacher Absent: Notified"];
+const RECORD_STATUSES=["Scheduled","Present","Absent","Cancelled","Student Absent: Notified","Teacher Absent: Notified"];
+
+/* Safe migration from the previous Teacher Lois version */
+(function migratePreviousBrandingData(){
+  const migrations = [
+    ["teacher_shine_dashboard_v1", "teacher_marc_dashboard_v1"],
+    ["teacher_shine_teacher_photo_v1", "teacher_marc_teacher_photo_v1"],
+    ["teacher_shine_closed_calendar_slots_v1", "teacher_marc_closed_calendar_slots_v1"]
+  ];
+  migrations.forEach(([oldKey,newKey])=>{
+    try{
+      if(localStorage.getItem(newKey)===null){
+        const oldValue=localStorage.getItem(oldKey);
+        if(oldValue!==null)localStorage.setItem(newKey,oldValue);
+      }
+    }catch(e){}
+  });
+  try{
+    const oldPrefix="teacher_shine_student_photo_";
+    const newPrefix="teacher_marc_student_photo_";
+    Object.keys(localStorage).forEach(k=>{
+      if(k.startsWith(oldPrefix)){
+        const nk=newPrefix+k.slice(oldPrefix.length);
+        if(localStorage.getItem(nk)===null){
+          const v=localStorage.getItem(k);
+          if(v!==null)localStorage.setItem(nk,v);
+        }
+      }
+    });
+  }catch(e){}
+})();
+
+const state=loadState();
+let view="dashboard", selectedStudent=null, weekOffset=0, studentQuery="", reportMonth=phMonth(), reportYear=phYear(), reportStudent="", reportStudentQuery="";
+let closedCalendarSlots=loadSlots();
+
+function normalizeClassRecordIds(records){
+  const used=new Set();
+  return records.map((r,i)=>{
+    const rec=(r&&typeof r==="object")?r:{};
+    let id=String(rec.id||"");
+    if(!id||used.has(id)){
+      id=uid("record");
+      while(used.has(id))id=uid("record");
+    }
+    used.add(id);
+    if(!rec.createdAt)rec.createdAt=Date.now()+i;
+    rec.id=id;
+    return rec;
+  });
+}
+function loadState(){
+  try{
+    const x=JSON.parse(localStorage.getItem(KEY)||"null");
+    return x&&typeof x==="object"?{
+      students:Array.isArray(x.students)?x.students:[],
+      weeklySchedules:Array.isArray(x.weeklySchedules)?x.weeklySchedules:[],
+      singleDaySchedules:Array.isArray(x.singleDaySchedules)?x.singleDaySchedules:[],
+      contracts:Array.isArray(x.contracts)?x.contracts:[],
+      payments:Array.isArray(x.payments)?x.payments:[],
+      classRecords:normalizeClassRecordIds(Array.isArray(x.classRecords)?x.classRecords:[])
+    }:{students:[],weeklySchedules:[],singleDaySchedules:[],contracts:[],payments:[],classRecords:[]};
+  }catch(e){return {students:[],weeklySchedules:[],singleDaySchedules:[],contracts:[],payments:[],classRecords:[]}}
+}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast("SAVE FAILED: Browser storage is full.","error")}}
+function loadSlots(){try{return JSON.parse(localStorage.getItem(SLOT_KEY)||"{}")||{}}catch(e){return {}}}
+function saveSlots(){try{localStorage.setItem(SLOT_KEY,JSON.stringify(closedCalendarSlots))}catch(e){toast("SAVE FAILED: Could not save slot status.","error")}}
+function uid(p){return p+"_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,7)}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function toast(msg,type=""){const el=document.getElementById("toast");el.innerHTML='<div class="toast '+type+'">'+esc(msg)+'</div>';setTimeout(()=>el.innerHTML="",2600)}
+function fmtDate(d){return new Intl.DateTimeFormat("en-CA",{timeZone:PH,year:"numeric",month:"2-digit",day:"2-digit"}).format(d)}
+function phYear(){return new Intl.DateTimeFormat("en-US",{timeZone:PH,year:"numeric"}).format(new Date())}
+function phMonth(){return new Intl.DateTimeFormat("en-US",{timeZone:PH,month:"2-digit"}).format(new Date())}
+function todayPH(){return fmtDate(new Date())}
+function phClock(){return new Intl.DateTimeFormat("en-US",{timeZone:PH,weekday:"long",month:"short",day:"numeric",year:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(new Date())}
+function student(id){return state.students.find(x=>x.id===id)}
+function nameOf(id){return student(id)?.name||"Unknown Student"}
+function studentCodeOf(id){return student(id)?.studentCode||""}
+function money(v){return Number(v||0).toFixed(2)}
+function input(label,name,value,required=false,type="text"){return `<label>${esc(label)}<input class="field" name="${esc(name)}" type="${type}" ${type==="number"?`step="0.01" min="0"`:``} value="${esc(value)}" ${required?"required":""}></label>`}
+function select(label,name,options,selected){return `<label>${esc(label)}<select class="field" name="${esc(name)}">${options.map(x=>`<option value="${esc(x)}" ${String(x)===String(selected)?"selected":""}>${esc(x)}</option>`).join("")}</select></label>`}
+function opts(selected=""){return `<option value="">Select student</option>`+state.students.map(x=>`<option value="${esc(x.id)}" ${x.id===selected?"selected":""}>${esc(x.name)}${x.studentCode?" · "+esc(x.studentCode):""}</option>`).join("")}
+function formData(f){return Object.fromEntries(new FormData(f).entries())}
+function modal(title,body){document.getElementById("modal").innerHTML=`<div class="modal-bg"><div class="modal"><h2>${esc(title)}</h2>${body}</div></div>`}
+function closeModal(){const scrollPos=captureUiScroll?captureUiScroll():null;document.getElementById("modal").innerHTML="";restoreUiScroll(scrollPos)}
+function header(title,sub){const titleHtml=title==="Harisse English Academy"?`<span class="brand-pink">Harisse</span> <span class="brand-navy">English Academy</span>`:esc(title);return `<div class="top"><div><h1 class="title">${titleHtml}</h1><p class="sub">${esc(sub)}</p></div><div class="clock"><small>Philippines Standard Time · UTC+08:00</small><strong id="clock">${esc(phClock())}</strong></div></div>`}
+setInterval(()=>{let c=document.getElementById("clock");if(c)c.textContent=phClock()},1000);
+
+function timezoneOptions(sel){
+  const common=["Asia/Manila","Europe/Warsaw","Europe/London","Europe/Paris","Europe/Berlin","America/New_York","America/Los_Angeles","America/Toronto","Asia/Tokyo","Asia/Seoul","Asia/Singapore","Australia/Sydney"];
+  let zones=common;
+  try{if(Intl.supportedValuesOf){zones=[...new Set([...common,...Intl.supportedValuesOf("timeZone")])]}}catch(e){}
+  if(sel&&!zones.includes(sel))zones.unshift(sel);
+  return zones.map(z=>`<option value="${esc(z)}" ${z===sel?"selected":""}>${esc(z)}</option>`).join("")
+}
+
+/* timezone conversion */
+function partsFor(date,tz){
+  const p=new Intl.DateTimeFormat("en-US",{timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(date);
+  const o={};p.forEach(x=>o[x.type]=x.value);return o
+}
+function zonedLocalToDate(dateStr,timeStr,tz){
+  const [y,m,d]=String(dateStr).split("-").map(Number),[hh,mm]=String(timeStr).split(":").map(Number);
+  if(!y||!m||!d||Number.isNaN(hh)||Number.isNaN(mm))return null;
+  let guess=Date.UTC(y,m-1,d,hh,mm);
+  for(let i=0;i<3;i++){
+    const p=partsFor(new Date(guess),tz);
+    const actual=Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute);
+    const desired=Date.UTC(y,m-1,d,hh,mm);
+    guess+=desired-actual;
+  }
+  return new Date(guess)
+}
+function convertStudentDateTimeToPhilippines(date,time,tz){
+  const instant=zonedLocalToDate(date,time,tz); if(!instant)return null;
+  const p=partsFor(instant,PH);
+  const dt=`${p.year}-${p.month}-${p.day}`;
+  const day=new Intl.DateTimeFormat("en-US",{timeZone:PH,weekday:"long"}).format(instant);
+  return {philippinesDate:dt,philippinesTime:`${p.hour}:${p.minute}`,philippinesDay:day,studentLocalDate:date,studentLocalTime:time,instant}
+}
+function weekday(date,tz=PH){return new Intl.DateTimeFormat("en-US",{timeZone:tz,weekday:"long"}).format(date)}
+function monday(offset=0){
+  const now=new Date(), p=partsFor(now,PH);
+  const noon=zonedLocalToDate(`${p.year}-${p.month}-${p.day}`,"12:00",PH);
+  const day=new Date(noon), wd=day.getUTCDay(); day.setUTCDate(day.getUTCDate()-(wd===0?6:wd-1)+offset*7); return day
+}
+function dateStr(d){return partsFor(d,PH).year+"-"+partsFor(d,PH).month+"-"+partsFor(d,PH).day}
+function weeklyOccurrenceForWeek(x,start){
+  const days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],wanted=days.indexOf(x.studentLocalDay);if(wanted<0)return null;
+  for(let i=0;i<7;i++){let d=new Date(start.getTime());d.setUTCDate(d.getUTCDate()+i);if(weekday(d,PH)===x.studentLocalDay){
+    const localDate=fmtInZone(d,x.studentTimezone||"Asia/Manila");
+    const conv=convertStudentDateTimeToPhilippines(localDate,x.studentLocalTime,x.studentTimezone||"Asia/Manila");
+    if(conv)return {...conv,id:x.id,duration:Number(x.duration||25)}
+  }}return null
+}
+function fmtInZone(d,tz){const p=partsFor(d,tz);return `${p.year}-${p.month}-${p.day}`}
+function scheduleInstant(x){return zonedLocalToDate(x.philippinesDate,x.philippinesTime,PH)}
+function overlap(a,durA,b,durB){return a&&b&&a<b.getTime()+durB*60000&&b<a.getTime()+durA*60000}
+function classDateForContract(x){return String(x?.phDate||x?.philippinesDate||x?.studentLocalDate||"").slice(0,10)}
+function dateWithinContract(d,c){d=String(d||"").slice(0,10);let s=String(c?.startDate||"").slice(0,10),e=String(c?.endDate||"").slice(0,10);return !!(d&&s&&e&&d>=s&&d<=e)}
+function weeklyOccurrenceDate(x){return x&&x.studentLocalDay?weeklyOccurrenceForWeek(x,monday(weekOffset))?.philippinesDate||"":""}
+function getClassStatus(x,occurrenceDate=""){
+  if(x&&x.studentLocalDay){const d=occurrenceDate||x._occurrenceDate||weeklyOccurrenceDate(x);if(d&&x.statusByDate&&x.statusByDate[d])return x.statusByDate[d];}
+  return x?.status||x?.classStatus||"Scheduled";
+}
+function isPresent(s){return s==="Present"}
+function allBookedClasses(){return [...state.weeklySchedules,...state.singleDaySchedules]}
+function contractForStudent(id,date=""){
+  const cs=state.contracts.filter(c=>c.studentId===id).sort((a,b)=>String(a.startDate).localeCompare(String(b.startDate)));
+  return date?cs.find(c=>dateWithinContract(date,c))||null:cs.find(c=>c.status!=="Completed")||cs.at(-1)||null
+}
+function weeklyScheduleWithinContract(x,date){
+  const s=student(x?.studentId);
+  if(!s || s.paymentType!=="Contract") return true;
+  return !!contractForStudent(x.studentId,date);
+}
+function recalculateContracts(){
+  state.contracts.forEach(c=>{
+    const records=state.classRecords.filter(r=>r.studentId===c.studentId&&isPresent(r.status)&&dateWithinContract(classDateForContract(r),c));
+    const recordedScheduleKeys=new Set(records.map(r=>String(r.sourceScheduleKey||"" )).filter(Boolean));
+    const booked=allBookedClasses().filter(x=>x.studentId===c.studentId&&isPresent(getClassStatus(x))&&dateWithinContract(classDateForContract(x),c));
+    const bookedOnly=booked.filter(x=>!recordedScheduleKeys.has(scheduleOccurrenceKey(x)));
+    c.total=Number(c.total)||0;c.used=records.length+bookedOnly.length;c.status=c.used>=c.total?"Completed":"Active";
+  })
+}
+function checkConflict(candidate,id,type){
+  const start=scheduleInstant(candidate);if(!start)return true;
+  for(const x of state.weeklySchedules){if(x.id===id)continue;const conv=weeklyOccurrenceForWeek(x,monday(weekOffset));if(!conv)continue;if(conv.philippinesDate!==candidate.philippinesDate)continue;if(overlap(start,Number(candidate.duration),scheduleInstant(conv),Number(x.duration)))return true}
+  for(const x of state.singleDaySchedules){if(x.id===id)continue;if(x.philippinesDate!==candidate.philippinesDate)continue;if(overlap(start,Number(candidate.duration),scheduleInstant(x),Number(x.duration)))return true}
+  return false
+}
+
+/* teacher photo */
+function applyTeacherPhoto(src){
+  const img=document.getElementById("teacherPhoto"),ph=document.getElementById("teacherPhotoPlaceholder");if(!img||!ph)return;
+  if(src){img.src=src;img.style.display="block";ph.style.display="none"}else{img.removeAttribute("src");img.style.display="none";ph.style.display="flex"}
+}
+function saveTeacherPhoto(src){
+  try{localStorage.setItem(PHOTO_KEY,src);applyTeacherPhoto(src);return true}
+  catch(e){
+    try{
+      const img=new Image();img.onload=()=>{
+        const c=document.createElement("canvas"),max=700;
+        const ratio=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+        c.width=Math.max(1,Math.round(img.naturalWidth*ratio));c.height=Math.max(1,Math.round(img.naturalHeight*ratio));
+        c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+        try{const compact=c.toDataURL("image/jpeg",.72);localStorage.setItem(PHOTO_KEY,compact);applyTeacherPhoto(compact);toast("Teacher photo saved for future browser sessions.")}catch(err){toast("SAVE FAILED: Browser storage is full. Please use a smaller photo.","error")}};
+      img.src=src;
+    }catch(err){toast("SAVE FAILED: The photo could not be saved.","error")}
+    return false;
+  }
+}
+function removeTeacherPhoto(){localStorage.removeItem(PHOTO_KEY);applyTeacherPhoto("");let i=document.getElementById("teacherPhotoInput");if(i)i.value="";toast("Teacher photo removed.")}
+document.getElementById("teacherPhotoInput").addEventListener("change",function(){
+  const f=this.files?.[0];if(!f)return;if(!f.type.startsWith("image/")){toast("Please select an image file.","error");return}
+  const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const size=Math.min(img.naturalWidth,img.naturalHeight),c=document.createElement("canvas");c.width=1200;c.height=1200;c.getContext("2d").drawImage(img,(img.naturalWidth-size)/2,(img.naturalHeight-size)/2,size,size,0,0,1200,1200);saveTeacherPhoto(c.toDataURL("image/jpeg",.88));toast("Teacher photo uploaded successfully.")};img.src=r.result};r.readAsDataURL(f);this.value=""
+});
+
+/* navigation */
+function setView(nextView){
+  view=nextView;
+  selectedStudent=null;
+  render();
+}
+window.setView=setView;
+document.querySelectorAll(".nav button").forEach(b=>{
+  b.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    setView(this.dataset.view);
+  });
+});
+function captureUiScroll(){
+  const wrap=document.querySelector(".calendar-wrap");
+  return {pageX:window.scrollX,pageY:window.scrollY,wrapTop:wrap?wrap.scrollTop:0,wrapLeft:wrap?wrap.scrollLeft:0};
+}
+function restoreUiScroll(pos){
+  if(!pos)return;
+  const apply=()=>{
+    window.scrollTo({left:pos.pageX,top:pos.pageY,behavior:"instant"});
+    const wrap=document.querySelector(".calendar-wrap");
+    if(wrap){wrap.scrollTop=pos.wrapTop;wrap.scrollLeft=pos.wrapLeft;}
+  };
+  apply();
+  requestAnimationFrame(()=>{apply();requestAnimationFrame(apply);});
+  setTimeout(apply,50);
+  setTimeout(apply,150);
+}
+function render(){
+  const scrollPos=captureUiScroll();
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===view));
+  document.getElementById("main").innerHTML=({dashboard,students,schedule,contracts,payments,records,reports,profile}[view]||dashboard)();
+  if(view==="profile"&&selectedStudent)applyStudentPhoto(selectedStudent,localStorage.getItem("teacher_marc_student_photo_"+selectedStudent)||"");
+  restoreUiScroll(scrollPos);
+}
+function dashboard(){
+  const today=todayPH(), ym=today.slice(0,7), y=today.slice(0,4);
+  const present=state.classRecords.filter(x=>x.status==="Present").length;
+  const monthly=state.students.filter(x=>x.paymentType==="Monthly").length;
+  const due=monthlyPaymentRows(ym).reduce((a,r)=>a+r.expected,0);
+  const nowText=new Intl.DateTimeFormat("en-US",{timeZone:PH,weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(new Date());
+  return `<div class="dashboard-page">`+
+  header("Harisse English Academy","Private ESL Tutor · Your teaching management dashboard")+
+  `<section class="hero hero-reference">
+     <div class="hero-sun" aria-hidden="true">☀</div>
+     <div class="hero-copy"><h2>Welcome to Harisse English Academy</h2><p class="sub">Manage your students, schedule, contracts, payments, and class records in one place.</p></div>
+     
+   </section>
+   <section class="panel overview-reference">
+     <div class="toolbar"><div class="section-heading"><span class="section-icon">▮▮</span><h2 style="margin:0">Overview</h2></div><span class="badge">Asia/Manila</span></div>
+     <section class="stats">${[
+       ["Total Students",state.students.length,"👥","rose"],
+       ["Active Students",state.students.filter(s=>s.active!==false).length,"●","peach"],
+       ["Classes Today",todayRows().length,"▣","mint"],
+       ["Classes This Week",weekClassCount(),"▣","rose"],
+       ["Classes This Month",state.classRecords.filter(x=>String(x.phDate||"").startsWith(ym)).length,"▮▮","sky"],
+       ["Classes This Year",state.classRecords.filter(x=>String(x.phDate||"").startsWith(y)).length,"◷","lavender"],
+       ["25-Minute Classes",allBookedClasses().filter(x=>+x.duration===25).length,"◷","yellow"],
+       ["50-Minute Classes",allBookedClasses().filter(x=>+x.duration===50).length,"◷","mint"],
+       ["Contract Students",state.students.filter(x=>x.paymentType==="Contract").length,"◆","mint"],
+       ["Monthly Payment Students",monthly,"▤","sky"],
+       ["Completed Classes",present,"✓","mint"],
+       ["Remaining Contract Classes",state.contracts.reduce((a,c)=>a+Math.max(0,+c.total-+c.used),0),"▤","rose"],
+       ["Unpaid Payments",state.payments.filter(x=>x.status==="Unpaid").length,"▰","lavender"],
+       ["Monthly Amount Due",money(due),"◉","sky"]
+     ].map(x=>`<article class="stat stat-${esc(x[3])}"><span class="stat-icon">${esc(x[2])}</span><div><span>${esc(x[0])}</span><b>${esc(x[1])}</b></div></article>`).join("")}</section>
+   </section>
+   <section class="panel today-reference">
+     <div class="toolbar">
+       <div class="section-heading today-heading"><span class="section-icon">✓</span><div><h2 style="margin:0">Today's Classes</h2><p class="sub">${esc(nowText)} · Philippines Time</p></div></div>
+       <span class="badge">${todayRows().length} class${todayRows().length===1?"":"es"}</span>
+     </div>
+     ${todayRowsHtml()}
+   </section>
+   </div>`
+}
+function todayRows(){
+  const today=todayPH(),arr=[];
+  state.singleDaySchedules.filter(x=>x.philippinesDate===today).forEach(x=>arr.push(x));
+  state.weeklySchedules.forEach(x=>{const c=weeklyOccurrenceForWeek(x,monday(0));if(c?.philippinesDate===today)arr.push({...x,...c,weekly:true})});
+  return arr.sort((a,b)=>String(a.philippinesTime).localeCompare(String(b.philippinesTime)))
+}
+function todayRowsHtml(){
+  const a=todayRows();
+  return a.length?`<div class="table"><table class="today-table"><thead><tr>
+    <th>Time</th><th>Student</th><th>Duration</th><th>Type</th><th>Status</th><th>Book / Lesson</th>
+  </tr></thead><tbody>${a.map(x=>{
+    const s=student(x.studentId)||{};
+    const status=getClassStatus(x);
+    const statusClass=statusClassName(status).replace(/^status-/,"");
+    /*
+       Today's Classes must carry forward the learner's most recently updated
+       book / lesson / page.  The previous logic only looked for a record on
+       today's exact date, which caused an older update (for example Filip's
+       September 25 lesson update) to disappear from today's dashboard.
+
+       Use the latest saved class record for this student whose Philippines
+       date is on or before the date being displayed.  If several records are
+       on the same date, use time first and createdAt as the final tie-breaker.
+    */
+    const displayDate=String(x.philippinesDate||todayPH());
+    const priorRecords=state.classRecords
+      .filter(r=>String(r.studentId||"")===String(x.studentId||"") && String(r.phDate||"") && String(r.phDate||"")<=displayDate)
+      .sort((a,b)=>{
+        const ad=String(a.phDate||"");
+        const bd=String(b.phDate||"");
+        if(ad!==bd)return bd.localeCompare(ad);
+        const at=String(a.phTime||"");
+        const bt=String(b.phTime||"");
+        if(at!==bt)return bt.localeCompare(at);
+        return Number(b.createdAt||0)-Number(a.createdAt||0);
+      });
+    /*
+       Resolve each lesson field from the newest non-empty update on or before
+       the class date. This keeps an older book/lesson/page when a newer record
+       did not change that particular field.
+    */
+    const latestValue=(field,fallback="")=>{
+      const found=priorRecords.find(r=>String(r[field]??"").trim()!=="");
+      return found?String(found[field]).trim():String(fallback??"");
+    };
+    const book=latestValue("book",x.book||s.book||"");
+    const lessonValue=latestValue("lesson",x.lesson||s.currentLesson||"");
+    const page=latestValue("page",x.page||s.currentPage||"");
+    const lesson=[book,lessonValue,page?`Page ${page}`:""].filter(Boolean).join(" / ");
+    return `<tr><td>${esc(x.philippinesTime)}</td><td><b>${esc(s.name||nameOf(x.studentId))}</b></td><td>${esc(x.duration)} min</td><td>${esc(s.paymentType||"—")}</td><td><span class="status-pill ${statusClass}">${esc(status==="Present"?"Completed":status)}</span></td><td>${esc(lesson||"—")}</td></tr>`;
+  }).join("")}</tbody></table></div>`:`<div class="empty">No classes scheduled for today.</div>`
+}
+function weekClassCount(){const s=monday(weekOffset),e=new Date(s);e.setUTCDate(e.getUTCDate()+6);let n=0;state.weeklySchedules.forEach(x=>{if(weeklyOccurrenceForWeek(x,s))n++});state.singleDaySchedules.forEach(x=>{if(x.philippinesDate>=dateStr(s)&&x.philippinesDate<=dateStr(e))n++});return n}
+
+/* students */
+function students(){
+  const q=studentQuery.toLowerCase(),rows=state.students.filter(x=>[x.name,x.studentCode,x.country].join(" ").toLowerCase().includes(q));
+  return header("Students","Manage learner profiles, photos, schedules, and payment details.")+
+  `<section class="panel"><div class="toolbar"><input class="field" style="max-width:380px" value="${esc(studentQuery)}" placeholder="Search name, ID, or country" oninput="studentQuery=this.value;render()"><button class="primary" onclick="studentForm()">+ Add Student</button></div>
+  <div class="table"><table><thead><tr><th>Student</th><th>Country / Timezone</th><th>Payment</th><th>Rate</th><th>Duration</th><th>Actions</th></tr></thead><tbody>${rows.length?rows.map(x=>`<tr><td><b>${esc(x.name)}</b><br><small>${esc(x.studentCode)}</small></td><td>${esc(x.country)}<br><small>${esc(x.timezone)}</small></td><td>${esc(x.paymentType)}</td><td>${money(x.rate)} ${esc(x.currency||"USD")}</td><td>${esc(x.duration)} min</td><td class="actions"><button class="mini" onclick="openProfile('${x.id}')">View</button><button class="mini" onclick="studentForm('${x.id}')">Edit</button><button class="mini del" onclick="confirmDelete('student','${x.id}')">Delete</button></td></tr>`).join(""):`<tr><td colspan="6" class="empty">No students found.</td></tr>`}</tbody></table></div></section>`
+}
+function studentForm(id=""){
+  const s=id?student(id):{studentCode:"",name:"",age:"",gender:"",country:"",timezone:"Asia/Manila",paymentType:"Monthly",rate:"",currency:"USD",duration:"25",book:"",currentLesson:"",currentPage:"",previousPage:"",note:""};
+  modal(id?"Edit Student":"Add Student",`<form onsubmit="saveStudent(event,'${id}')"><div class="grid">${input("Student ID","studentCode",s.studentCode,true)}${input("Student Name","name",s.name,true)}${input("Age","age",s.age,false,"number")}${select("Gender","gender",["","Female","Male","Other"],s.gender)}${input("Country","country",s.country)}<label>IANA Timezone<select class="field" name="timezone" required>${timezoneOptions(s.timezone)}</select></label>${select("Payment Type","paymentType",["Monthly","Contract"],s.paymentType)}${input("Rate Per Class","rate",s.rate,false,"number")}${input("Currency","currency",s.currency)}${select("Class Duration","duration",["25","50"],String(s.duration))}${input("Book","book",s.book)}${input("Current Lesson","currentLesson",s.currentLesson)}${input("Current Page","currentPage",s.currentPage)}${input("Previous Page","previousPage",s.previousPage)}<label class="full">Class Note<textarea class="field" name="note">${esc(s.note)}</textarea></label></div><div class="modal-actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button class="primary">Save Student</button></div></form>`)
+}
+function saveStudent(e,id){e.preventDefault();const d=formData(e.target);if(state.students.some(x=>x.studentCode===d.studentCode&&x.id!==id)){toast("SAVE FAILED: Student ID already exists.","error");return}d.id=id||uid("student");d.rate=+d.rate||0;d.duration=+d.duration||25;d.active=true;if(id)state.students[state.students.findIndex(x=>x.id===id)]={...student(id),...d};else state.students.push(d);persist();closeModal();render();toast(id?"Student successfully updated.":"Student successfully added.")}
+function openProfile(id){selectedStudent=id;view="profile";render()}
+function profile(){
+ const s=student(selectedStudent);if(!s){view="students";return students()}
+ const photo=localStorage.getItem("teacher_marc_student_photo_"+s.id)||"";
+ const w=state.weeklySchedules.filter(x=>x.studentId===s.id),one=state.singleDaySchedules.filter(x=>x.studentId===s.id),r=state.classRecords.filter(x=>x.studentId===s.id);
+ return header(s.name,"Student profile · "+s.studentCode)+
+ `<div class="student-photo-box">${photo?`<img id="studentPhoto_${s.id}" class="student-photo" src="${esc(photo)}">`:`<div id="studentPhotoPlaceholder_${s.id}" class="student-photo-placeholder">${esc((s.name||"S").slice(0,1).toUpperCase())}</div>`}<div class="student-photo-actions"><b>Student Photo</b><small>Upload or remove this student's profile photo.</small><button onclick="document.getElementById('studentPhotoInput_${s.id}').click()">Upload Photo</button><button class="remove" onclick="removeStudentPhoto('${s.id}')">Remove Photo</button><input id="studentPhotoInput_${s.id}" type="file" accept="image/*" hidden onchange="handleStudentPhoto(this,'${s.id}')"></div></div>
+ <div class="toolbar"><button class="ghost" onclick="view='students';render()">← Back to Students</button><div class="right"><button class="primary" onclick="classChoice('${s.id}')">+ Add Class</button><button class="secondary" onclick="studentForm('${s.id}')">Edit Student</button><button class="danger" onclick="confirmDelete('student','${s.id}')">Delete Student</button></div></div>
+ <section class="panel"><div class="profile-grid">${[["Student ID",s.studentCode],["Country",s.country],["Timezone",s.timezone],["Payment Type",s.paymentType],["Rate",money(s.rate)+" "+(s.currency||"USD")],["Class Duration",(s.duration||25)+" minutes"],["Book",s.book],["Current Lesson",s.currentLesson],["Pages",(s.previousPage||"—")+" → "+(s.currentPage||"—")],["Notes",s.note||"—"]].map(d=>`<div class="profile-item"><small>${esc(d[0])}</small><b>${esc(d[1])}</b></div>`).join("")}</div></section>
+ <section class="panel"><h2>Weekly Schedule</h2>${scheduleCards(w,"weekly")||`<p class="sub">No weekly classes.</p>`}</section><section class="panel"><h2>Single-Day Schedule</h2>${scheduleCards(one,"single")||`<p class="sub">No single-day classes.</p>`}</section><section class="panel"><h2>Class History</h2>${r.length?r.map(x=>`<div class="card" style="padding:8px;border-bottom:1px solid #ddd"><span>${esc(x.phDate)} · ${esc(x.phTime)} · ${esc(x.status)}</span> <button class="mini" onclick="recordForm('${x.id}')">Edit</button></div>`).join(""):`<p class="sub">No saved records yet.</p>`}</section>`
+}
+function scheduleCards(items,type){return items.map(x=>`<button type="button" class="event" style="display:block;width:100%;margin:5px 0;text-align:left" onclick="openBookedClassStatus('${type}','${x.id}')"><span class="cal-event-name">${esc(nameOf(x.studentId))}</span><span class="cal-event-status">${esc(getClassStatus(x))}</span></button>`).join("")}
+
+/* teachers */
+function teachers(){
+  const q=teachersQuery.toLowerCase(),rows=state.teacherss.filter(x=>[x.name,x.teachersCode,x.country].join(" ").toLowerCase().includes(q));
+  return header("teacherss","Manage learner profiles, photos, schedules, and payment details.")+
+  `<section class="panel"><div class="toolbar"><input class="field" style="max-width:380px" value="${esc(teachersQuery)}" placeholder="Search name, ID, or country" oninput="teachersQuery=this.value;render()"><button class="primary" onclick="teachersForm()">+ Add teachers</button></div>
+  <div class="table"><table><thead><tr><th>teachers</th><th>Country / Timezone</th><th>Payment</th><th>Rate</th><th>Duration</th><th>Actions</th></tr></thead><tbody>${rows.length?rows.map(x=>`<tr><td><b>${esc(x.name)}</b><br><small>${esc(x.teachersCode)}</small></td><td>${esc(x.country)}<br><small>${esc(x.timezone)}</small></td><td>${esc(x.paymentType)}</td><td>${money(x.rate)} ${esc(x.currency||"USD")}</td><td>${esc(x.duration)} min</td><td class="actions"><button class="mini" onclick="openProfile('${x.id}')">View</button><button class="mini" onclick="teachersForm('${x.id}')">Edit</button><button class="mini del" onclick="confirmDelete('teachers','${x.id}')">Delete</button></td></tr>`).join(""):`<tr><td colspan="6" class="empty">No teacherss found.</td></tr>`}</tbody></table></div></section>`
+}
+function teacherForm(id=""){
+  const s=id?teachers(id):{teachersCode:"",name:"",age:"",gender:"",country:"",timezone:"Asia/Manila",paymentType:"Monthly",rate:"",currency:"USD",duration:"25",book:"",currentLesson:"",currentPage:"",previousPage:"",note:""};
+  modal(id?"Edit teachers":"Add teachers",`<form onsubmit="saveteachers(event,'${id}')"><div class="grid">${input("teachers ID","teachersCode",s.teachersCode,true)}${input("teachers Name","name",s.name,true)}${input("Age","age",s.age,false,"number")}${select("Gender","gender",["","Female","Male","Other"],s.gender)}${input("Country","country",s.country)}<label>IANA Timezone<select class="field" name="timezone" required>${timezoneOptions(s.timezone)}</select></label>${select("Payment Type","paymentType",["Monthly","Contract"],s.paymentType)}${input("Rate Per Class","rate",s.rate,false,"number")}${input("Currency","currency",s.currency)}${select("Class Duration","duration",["25","50"],String(s.duration))}${input("Book","book",s.book)}${input("Current Lesson","currentLesson",s.currentLesson)}${input("Current Page","currentPage",s.currentPage)}${input("Previous Page","previousPage",s.previousPage)}<label class="full">Class Note<textarea class="field" name="note">${esc(s.note)}</textarea></label></div><div class="modal-actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button class="primary">Save teachers</button></div></form>`)
+}
+function saveteachers(e,id){e.preventDefault();const d=formData(e.target);if(state.teacherss.some(x=>x.teachersCode===d.teachersCode&&x.id!==id)){toast("SAVE FAILED: teachers ID already exists.","error");return}d.id=id||uid("teachers");d.rate=+d.rate||0;d.duration=+d.duration||25;d.active=true;if(id)state.teacherss[state.teacherss.findIndex(x=>x.id===id)]={...teachers(id),...d};else state.teacherss.push(d);persist();closeModal();render();toast(id?"teachers successfully updated.":"teachers successfully added.")}
+function openProfile(id){selectedteachers=id;view="profile";render()}
+function profile(){
+ const s=teachers(selectedteachers);if(!s){view="teacherss";return teacherss()}
+ const photo=localStorage.getItem("teacher_marc_teachers_photo_"+s.id)||"";
+ const w=state.weeklySchedules.filter(x=>x.teachersId===s.id),one=state.singleDaySchedules.filter(x=>x.teachersId===s.id),r=state.classRecords.filter(x=>x.teachersId===s.id);
+ return header(s.name,"teachers profile · "+s.teachersCode)+
+ `<div class="teachers-photo-box">${photo?`<img id="teachersPhoto_${s.id}" class="teachers-photo" src="${esc(photo)}">`:`<div id="teachersPhotoPlaceholder_${s.id}" class="teachers-photo-placeholder">${esc((s.name||"S").slice(0,1).toUpperCase())}</div>`}<div class="teachers-photo-actions"><b>teachers Photo</b><small>Upload or remove this teachers's profile photo.</small><button onclick="document.getElementById('teachersPhotoInput_${s.id}').click()">Upload Photo</button><button class="remove" onclick="removeteachersPhoto('${s.id}')">Remove Photo</button><input id="teachersPhotoInput_${s.id}" type="file" accept="image/*" hidden onchange="handleteachersPhoto(this,'${s.id}')"></div></div>
+ <div class="toolbar"><button class="ghost" onclick="view='teacherss';render()">← Back to teacherss</button><div class="right"><button class="primary" onclick="classChoice('${s.id}')">+ Add Class</button><button class="secondary" onclick="teachersForm('${s.id}')">Edit teachers</button><button class="danger" onclick="confirmDelete('teachers','${s.id}')">Delete teachers</button></div></div>
+ <section class="panel"><div class="profile-grid">${[["teachers ID",s.teachersCode],["Country",s.country],["Timezone",s.timezone],["Payment Type",s.paymentType],["Rate",money(s.rate)+" "+(s.currency||"USD")],["Class Duration",(s.duration||25)+" minutes"],["Book",s.book],["Current Lesson",s.currentLesson],["Pages",(s.previousPage||"—")+" → "+(s.currentPage||"—")],["Notes",s.note||"—"]].map(d=>`<div class="profile-item"><small>${esc(d[0])}</small><b>${esc(d[1])}</b></div>`).join("")}</div></section>
+ <section class="panel"><h2>Weekly Schedule</h2>${scheduleCards(w,"weekly")||`<p class="sub">No weekly classes.</p>`}</section><section class="panel"><h2>Single-Day Schedule</h2>${scheduleCards(one,"single")||`<p class="sub">No single-day classes.</p>`}</section><section class="panel"><h2>Class History</h2>${r.length?r.map(x=>`<div class="card" style="padding:8px;border-bottom:1px solid #ddd"><span>${esc(x.phDate)} · ${esc(x.phTime)} · ${esc(x.status)}</span> <button class="mini" onclick="recordForm('${x.id}')">Edit</button></div>`).join(""):`<p class="sub">No saved records yet.</p>`}</section>`
+}
+function scheduleCards(items,type){return items.map(x=>`<button type="button" class="event" style="display:block;width:100%;margin:5px 0;text-align:left" onclick="openBookedClassStatus('${type}','${x.id}')"><span class="cal-event-name">${esc(nameOf(x.teachersId))}</span><span class="cal-event-status">${esc(getClassStatus(x))}</span></button>`).join("")}
+
+
+/* student photos */
+function handleStudentPhoto(input,id){const f=input.files?.[0];if(!f)return;if(!f.type.startsWith("image/")){toast("Please select an image file.","error");return}const r=new FileReader();r.onload=()=>{try{localStorage.setItem("teacher_marc_student_photo_"+id,r.result);render();toast("Student photo uploaded.")}catch(e){toast("SAVE FAILED: Student photo is too large for browser storage.","error")}};r.readAsDataURL(f)}
+function removeStudentPhoto(id){localStorage.removeItem("teacher_marc_student_photo_"+id);render();toast("Student photo removed.")}
+
+/* schedule */
+function schedule(){
+ const start=monday(weekOffset),days=Array.from({length:7},(_,i)=>{const d=new Date(start);d.setUTCDate(d.getUTCDate()+i);return d});
+ const nowParts=new Intl.DateTimeFormat("en-CA",{timeZone:PH,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).reduce((o,p)=>(o[p.type]=p.value,o),{});
+ const nowDate=`${nowParts.year}-${nowParts.month}-${nowParts.day}`;
+ const nowMinutes=Number(nowParts.minute);
+ const nowTime=`${String(Number(nowParts.hour)).padStart(2,"0")}:${nowMinutes<30?"00":"30"}`;
+ let g=`<div class="calendar"><div class="cal-head">PH Time</div>`+days.map(d=>{const pd=dateStr(d);return `<div class="cal-head${pd===nowDate?" current-day":""}">${esc(weekday(d))}<br>${esc(fmtDate(d).slice(5))}${pd===nowDate?"<br><small>Today</small>":""}</div>`}).join("");
+ const weekly=state.weeklySchedules.map(x=>({x,conv:weeklyOccurrenceForWeek(x,start)})).filter(a=>a.conv&&weeklyScheduleWithinContract(a.x,a.conv.philippinesDate));
+ for(let row=0;row<48;row++){const time=String(Math.floor(row/2)).padStart(2,"0")+(row%2?":30":":00");const displayTime=(h=>{const [hh,mm]=h.split(":").map(Number);const suffix=hh>=12?"PM":"AM";const hour=hh%12||12;return `${hour}:${String(mm).padStart(2,"0")} ${suffix}`;})(time);g+=`<div class="time-label${time===nowTime?" current-time":""}">${displayTime}${time===nowTime?"<br><small>Current</small>":""}</div>`+days.map(d=>{const pd=dateStr(d),day=weekday(d);const ww=weekly.filter(a=>a.conv.philippinesDate===pd&&a.conv.philippinesTime===time).map(a=>({...a.x,_occurrenceDate:pd})),ss=state.singleDaySchedules.filter(x=>x.philippinesDate===pd&&x.philippinesTime===time);const closed=isSlotClosed(pd,time);const currentSlot=pd===nowDate&&time===nowTime;return `<div class="cell${closed?" slot-closed":""}${currentSlot?" current-slot":""}">${slotControls(pd,time)}${calendarEvents(ww,"weekly")}${calendarEvents(ss,"single")}</div>`}).join("")}g+="</div>";
+ const ws=new Intl.DateTimeFormat("en-US",{timeZone:PH,month:"long",day:"numeric",year:"numeric"}).format(start),we=new Intl.DateTimeFormat("en-US",{timeZone:PH,month:"long",day:"numeric",year:"numeric"}).format(days[6]);
+ return header("Weekly Schedule",`Week of ${ws} – ${we} · Philippines time · Asia/Manila`)+`<section class="panel"><div class="toolbar"><div class="left"><button class="ghost" onclick="weekOffset--;render()">Previous Week</button><button class="secondary" onclick="weekOffset=0;render()">Today</button><button class="ghost" onclick="weekOffset++;render()">Next Week</button></div><button class="primary" onclick="classChoice()">+ Add Class</button></div><div class="calendar-wrap">${g}</div></section>`
+}
+function statusClassName(status){
+  return "status-"+String(status||"Scheduled").trim().toLowerCase()
+    .replace(/:/g,"")
+    .replace(/[^a-z0-9]+/g,"-")
+    .replace(/^-+|-+$/g,"");
+}
+function applyStatusPickerColor(){
+  const p=document.getElementById("statusPicker");
+  if(!p)return;
+  p.className="field status-picker "+statusClassName(p.value);
+}
+function calendarStatusClass(status){
+  return statusClassName(status);
+}
+function calendarEvents(items,type){return items.map(x=>`<div class="event ${calendarStatusClass(getClassStatus(x))}" style="min-height:${+x.duration===50?82:43}px"><button class="event-main" onclick="event.stopPropagation();openBookedClassStatus('${type}','${x.id}')"><span class="cal-event-name" title="${esc(nameOf(x.studentId))}">${esc(nameOf(x.studentId))}</span><span class="cal-event-status">${esc(getClassStatus(x))}</span></button><span class="event-actions" aria-label="Class actions"><button class="event-action edit" title="Edit class" onclick="event.stopPropagation();${type==="weekly"?`weeklyForm('${x.id}')`:`singleForm('${x.id}')`}">Edit</button><button class="event-action delete" title="Delete class" onclick="event.stopPropagation();confirmDelete('${type}','${x.id}')">Delete</button></span></div>`).join("")}
+function isSlotClosed(date,time){return closedCalendarSlots[date+"|"+time]===true}
+function slotControls(date,time){const c=isSlotClosed(date,time);return `<div class="slot-controls"><button type="button" class="slot-control open" onclick="event.preventDefault();event.stopPropagation();setSlot('${date}','${time}',false)" ${c?"":"disabled"}>Open</button><button type="button" class="slot-control close" onclick="event.preventDefault();event.stopPropagation();setSlot('${date}','${time}',true)" ${c?"disabled":""}>Close</button></div>`}
+function renderPreservingScroll(){const scrollPos=captureUiScroll();render();restoreUiScroll(scrollPos)}
+function setSlot(d,t,c){
+  const k=d+"|"+t;
+  if(c)closedCalendarSlots[k]=true;else delete closedCalendarSlots[k];
+  saveSlots();
+  renderPreservingScroll();
+  toast(c?"Slot closed.":"Slot opened.");
+}
+function classChoice(sid=""){modal("Add Class",`<p class="sub">Enter the class using the student's local timezone. The system converts it to Philippines time.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><button class="secondary" onclick="closeModal();weeklyForm('','${sid}')"><b>Add Weekly Class</b><br><small>Repeats weekly.</small></button><button class="primary" onclick="closeModal();singleForm('','${sid}')"><b>Add Single-Day Class</b><br><small>One exact date.</small></button></div><div class="modal-actions"><button class="ghost" onclick="closeModal()">Cancel</button></div>`)}
+
+/* weekly/single forms */
+function weeklyForm(id="",sid=""){const old=id?state.weeklySchedules.find(x=>x.id===id):null,x=old?{...old,studentTimezone:student(old.studentId)?.timezone||old.studentTimezone}:{studentId:sid,studentLocalDay:"Monday",studentLocalTime:"09:00",studentTimezone:student(sid)?.timezone||"Asia/Manila",duration:"25",book:"",lesson:"",page:"",note:""};modal(id?"Edit Weekly Class":"Add Weekly Class",`<form onsubmit="saveWeekly(event,'${id}')"><div class="grid"><label>Student<select class="field" name="studentId" onchange="syncTZ(this,'weekly-tz')" required>${opts(x.studentId)}</select></label>${select("Student Local Day","studentLocalDay",["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],x.studentLocalDay)}${input("Student Local Time","studentLocalTime",x.studentLocalTime,true,"time")}<label>Student Timezone<select class="field" id="weekly-tz" name="studentTimezone" required>${timezoneOptions(x.studentTimezone)}</select></label>${select("Duration","duration",["25","50"],String(x.duration))}${input("Book","book",x.book)}${input("Lesson","lesson",x.lesson)}${input("Page","page",x.page)}${select("Class Status","status",CLASS_STATUSES,getClassStatus(x))}<label class="full">Class Note<textarea class="field" name="note">${esc(x.note)}</textarea></label></div><div class="modal-actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button class="primary">Save Weekly Class</button></div></form>`)}
+function syncTZ(el,id){const s=student(el.value),tz=document.getElementById(id);if(s&&tz)tz.innerHTML=timezoneOptions(s.timezone)}
+function saveWeekly(e,id){e.preventDefault();const d=formData(e.target),s=student(d.studentId);if(!s){toast("SAVE FAILED: Select a student.","error");return}d.studentTimezone=s.timezone;d.duration=+d.duration;const temp={...d,id:id||uid("weekly")},conv=weeklyOccurrenceForWeek(temp,monday(weekOffset));if(!conv){toast("SAVE FAILED: Timezone conversion failed.","error");return}const existing=id?state.weeklySchedules.find(x=>x.id===id):null;
+const occurrenceDate=conv.philippinesDate;
+const statusByDate={...(existing?.statusByDate||{})};
+if(d.status)statusByDate[occurrenceDate]=d.status;
+const obj={...temp,studentCountry:s.country,studentLocalDate:conv.studentLocalDate,philippinesDate:conv.philippinesDate,philippinesDay:conv.philippinesDay,philippinesTime:conv.philippinesTime,teacherTimezone:PH,status:existing?.status||"Scheduled",statusByDate};if(checkConflict(obj,id,"weekly")){toast("SAVE FAILED: The Philippines-time schedule conflicts with another booking.","error");return}if(id)state.weeklySchedules[state.weeklySchedules.findIndex(x=>x.id===id)]={...state.weeklySchedules.find(x=>x.id===id),...obj};else state.weeklySchedules.push(obj);syncBookedClassToRecord("weekly",obj,getClassStatus(obj));recalculateContracts();persist();closeModal();render();toast(id?"Weekly class updated.":"Weekly class added.")}
+function singleForm(id="",sid=""){const old=id?state.singleDaySchedules.find(x=>x.id===id):null,x=old?{...old,studentTimezone:student(old.studentId)?.timezone||old.studentTimezone}:{studentId:sid,studentLocalDate:todayPH(),studentLocalTime:"09:00",studentTimezone:student(sid)?.timezone||"Asia/Manila",duration:"25",book:"",lesson:"",page:"",note:""};modal(id?"Edit Single-Day Class":"Add Single-Day Class",`<form onsubmit="saveSingle(event,'${id}')"><div class="grid"><label>Student<select class="field" name="studentId" onchange="syncTZ(this,'single-tz')" required>${opts(x.studentId)}</select></label>${input("Student Local Date","studentLocalDate",x.studentLocalDate,true,"date")}${input("Student Local Time","studentLocalTime",x.studentLocalTime,true,"time")}<label>Student Timezone<select class="field" id="single-tz" name="studentTimezone" required>${timezoneOptions(x.studentTimezone)}</select></label>${select("Duration","duration",["25","50"],String(x.duration))}${input("Book","book",x.book)}${input("Lesson","lesson",x.lesson)}${input("Page","page",x.page)}<label class="full">Class Note<textarea class="field" name="note">${esc(x.note)}</textarea></label></div><div class="modal-actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button class="primary">Save Single-Day Class</button></div></form>`)}
+function saveSingle(e,id){e.preventDefault();const d=formData(e.target),s=student(d.studentId);if(!s){toast("SAVE FAILED: Select a student.","error");return}d.studentTimezone=s.timezone;d.duration=+d.duration;const conv=convertStudentDateTimeToPhilippines(d.studentLocalDate,d.studentLocalTime,d.studentTimezone);if(!conv){toast("SAVE FAILED: Timezone conversion failed.","error");return}const obj={...d,id:id||uid("single"),studentCountry:s.country,...conv,teacherTimezone:PH,status:id?getClassStatus(state.singleDaySchedules.find(x=>x.id===id)):"Scheduled"};if(checkConflict(obj,id,"single")){toast("SAVE FAILED: The Philippines-time schedule conflicts with another booking.","error");return}if(id)state.singleDaySchedules[state.singleDaySchedules.findIndex(x=>x.id===id)]={...state.singleDaySchedules.find(x=>x.id===id),...obj};else state.singleDaySchedules.push(obj);recalculateContracts();persist();closeModal();render();toast(id?"Single-day class updated.":"Single-day class added.")}
+function scheduleOccurrenceKey(x, occurrenceDate=""){
+  const type=x&&x.studentLocalDay?"weekly":"single";
+  const date=occurrenceDate||x?.philippinesDate||x?.studentLocalDate||"";
+  return `${type}|${x?.id||""}|${date}|${x?.philippinesTime||x?.studentLocalTime||""}`;
+}
+function occurrenceForBookedClass(type,x){
+  if(!x)return null;
+  if(type==="single")return {...x,philippinesDate:x.philippinesDate,philippinesTime:x.philippinesTime};
+  const conv=weeklyOccurrenceForWeek(x,monday(weekOffset));
+  return conv?{...x,...conv}:null;
+}
+function syncBookedClassToRecord(type,x,status){
+  const occ=occurrenceForBookedClass(type,x);
+  if(!occ||!occ.philippinesDate||!occ.philippinesTime)return;
+  const key=scheduleOccurrenceKey(x,occ.philippinesDate);
+  let rec=state.classRecords.find(r=>String(r.sourceScheduleKey||"")===key);
+  const s=student(x.studentId)||{};
+  const data={studentId:x.studentId,phDate:occ.philippinesDate,phTime:occ.philippinesTime,duration:Number(x.duration||25),book:x.book||s.book||"",lesson:x.lesson||s.currentLesson||"",page:x.page||"",status:status,note:x.note||"",sourceScheduleId:x.id,sourceScheduleType:type,sourceScheduleKey:key,studentLocalDate:occ.studentLocalDate||x.studentLocalDate||"",studentLocalTime:x.studentLocalTime||x.studentLocalTime||"",studentTimezone:x.studentTimezone||s.timezone||"Asia/Manila",teacherTimezone:PH};
+  if(rec){Object.assign(rec,data);}
+  else{state.classRecords.unshift({id:uid("record"),createdAt:Date.now(),...data});}
+}
+function openBookedClassStatus(type,id){
+  const pageX=window.scrollX,pageY=window.scrollY;
+  const wrap=document.querySelector(".calendar-wrap");
+  const wrapTop=wrap?wrap.scrollTop:0,wrapLeft=wrap?wrap.scrollLeft:0;
+  const restoreScroll=()=>{
+    window.scrollTo({left:pageX,top:pageY,behavior:"instant"});
+    const next=document.querySelector(".calendar-wrap");
+    if(next){next.scrollTop=wrapTop;next.scrollLeft=wrapLeft;}
+  };
+  const arr=type==="weekly"?state.weeklySchedules:state.singleDaySchedules,x=arr.find(a=>a.id===id);
+  if(!x)return;
+  const occ=type==="weekly"?occurrenceForBookedClass(type,x):x;
+  const occurrenceDate=type==="weekly"?occ?.philippinesDate:x.philippinesDate;
+  const current=getClassStatus(x,occurrenceDate);
+  if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+  modal("Booked Class",`<div class="profile-grid"><div class="profile-item"><small>Student Name</small><b>${esc(nameOf(x.studentId))}</b></div><div class="profile-item"><small>Date</small><b>${esc(occurrenceDate||"")}</b></div><div class="profile-item"><small>Current Status</small><b>${esc(current)}</b></div><div class="profile-item"><small>Duration</small><b>${esc(x.duration||25)} minutes</b></div></div><label style="margin-top:14px">Change Status<select class="field status-picker ${statusClassName(current)}" id="statusPicker" onchange="applyStatusPickerColor()">${CLASS_STATUSES.map(v=>`<option ${v===current?"selected":""}>${esc(v)}</option>`).join("")}</select></label><div class="modal-actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveBookedStatus('${type}','${id}','${occurrenceDate||""}')">Save Status</button></div>`);
+  restoreScroll();
+  requestAnimationFrame(()=>{restoreScroll();requestAnimationFrame(restoreScroll);});
+  setTimeout(restoreScroll,50);
+  setTimeout(restoreScroll,150);
+}
+function saveBookedStatus(type,id,occurrenceDate=""){
+  const p=document.getElementById("statusPicker"),arr=type==="weekly"?state.weeklySchedules:state.singleDaySchedules,x=arr.find(a=>a.id===id);if(!x||!p)return;
+  const nextStatus=p.value;
+  if(type==="weekly"){
+    const d=occurrenceDate||weeklyOccurrenceDate(x);x.statusByDate={...(x.statusByDate||{}),[d]:nextStatus};
+    const copy={...x,_occurrenceDate:d};syncBookedClassToRecord(type,copy,nextStatus);
+  }else{x.status=nextStatus;x.classStatus=nextStatus;syncBookedClassToRecord(type,x,nextStatus);}
+  recalculateContracts();persist();closeModal();render();toast(`Class status changed to ${nextStatus} for ${occurrenceDate||x.philippinesDate||"this date"} and recorded automatically.`);
+}
+
+/* contracts */
+function contracts(){
+ const contractRows=state.contracts.map(c=>{
+  const st=student(c.studentId)||{},rate=Number(st.rate||0),totalDue=Number(c.amountDue||0);
+  const paid=state.payments.filter(p=>p.studentId===c.studentId&&String(p.type||"").toLowerCase()==="contract"&&dateWithinContract(String(p.date||""),c)&&String(p.status||"").toLowerCase()==="paid").reduce((n,p)=>n+Number(p.amount||0),0);
+  return {...c,rate,totalDue,paid,outstanding:Math.max(0,totalDue-paid)};
+ });
+ return header("Contracts","Manage prepaid packages and exact payment amounts. Total amount due is entered directly and is not calculated from rate or total classes. Contract payment due and outstanding balances are linked with Payments, Records, and Reports.")+`<section class="panel"><div class="toolbar"><span class="sub">${state.contracts.length} contract(s)</span><div class="right"><span class="badge">Contract payments linked live</span><button class="primary" onclick="contractForm()">+ Add Contract</button></div></div><div class="table"><table class="payment-information-table"><thead><tr><th>Contract</th><th>Student</th><th>Dates</th><th>Package</th><th>Used</th><th>Remaining</th><th>Rate / Class</th><th>Exact Total Amount Due</th><th>Paid</th><th>Extra Paid Amount</th><th>Outstanding Balance</th><th>Status</th><th>Linked</th><th>Actions</th></tr></thead><tbody>${contractRows.length?contractRows.map(x=>`<tr><td>${esc(x.contractCode)}</td><td><b>${esc(nameOf(x.studentId))}</b></td><td>${esc(x.startDate||"")}<br>${esc(x.endDate||"")}</td><td>${esc(x.package)}</td><td>${x.used}/${x.total}</td><td><b>${Math.max(0,+x.total-+x.used)}</b></td><td>${money(x.rate)}</td><td class="payment-due">${money(x.totalDue)}</td><td>${money(x.paid)}</td><td>${extraPaidHtml(x.extraPaid)}</td><td class="payment-outstanding ${x.outstanding<=0?"zero":""}">${money(x.outstanding)}</td><td><span class="badge ${statusClassName(x.status)}">${esc(x.status)}</span></td><td><div class="payment-link-buttons"><button class="mini" type="button" onclick="setView('payments')">Payments</button><button class="mini" type="button" onclick="setView('records')">Records</button><button class="mini" type="button" onclick="setView('reports')">Reports</button></div></td><td class="actions"><button class="mini" onclick="contractForm('${x.id}')">Edit</button><button class="mini del" onclick="confirmDelete('contract','${x.id}')">Delete</button></td></tr>`).join(""):`<tr><td colspan="13" class="empty">No contracts yet.</td></tr>`}</tbody></table></div></section>`}
+function contractForm(id=""){const x=id?state.contracts.find(a=>a.id===id):{studentId:"",contractCode:"",startDate:todayPH(),endDate:"",package:"20 + 1 FREE",total:"21",amountDue:"",used:"0",status:"Active"};modal(id?"Edit Contract":"Add Contract",`<form onsubmit="saveContract(event,'${id}')"><div class="grid"><label>Student<select class="field" name="studentId" required>${opts(x.studentId)}</select></label>${input("Contract ID","contractCode",x.contractCode,true)}${input("Start Date","startDate",x.startDate,false,"date")}${input("End Date","endDate",x.endDate,false,"date")}<label>Package<select class="field" name="package" onchange="syncContractPackage(this)">${["20 + 1 FREE","30 + 2 FREE","40 + 3 FREE","Custom"].map(v=>`<option value="${esc(v)}" ${v===x.package?"selected":""}>${esc(v)}</option>`).join("")}</select></label>${input("Total Classes","total",x.total,false,"number")}${input("Exact Total Amount Due","amountDue",x.amountDue??"",true,"number")}${select("Status","status",["Active","Completed"],x.status)}</div><p class="sub">Package totals: 20+1 = 21, 30+2 = 32, 40+3 = 43. Choose <b>Custom</b> to enter any number of classes. <b>Exact Total Amount Due</b> is entered manually and is never calculated from rate or total classes. Dates are inclusive.</p><div class="modal-actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button class="primary">Save Contract</button></div></form>`)}
+
+function syncContractPackage(el){const total=el.closest("form")?.querySelector('[name="total"]');if(!total)return;const totals={"20 + 1 FREE":21,"30 + 2 FREE":32,"40 + 3 FREE":43};if(Object.prototype.hasOwnProperty.call(totals,el.value))total.value=totals[el.value];}
+function saveContract(e,id){e.preventDefault();const d=formData(e.target);if(!d.startDate||!d.endDate||d.endDate<d.startDate){toast("SAVE FAILED: Enter a valid contract date range.","error");return}d.id=id||uid("contract");d.total=+d.total||0;d.amountDue=d.amountDue===""?"":(+d.amountDue||0);d.used=id?Number(state.contracts.find(x=>x.id===id)?.used||0):0;d.status=d.used>=d.total?"Completed":"Active";if(id)state.contracts[state.contracts.findIndex(x=>x.id===id)]={...state.contracts.find(x=>x.id===id),...d};else state.contracts.push(d);recalculateContracts();persist();closeModal();render();toast(id?"Contract updated.":"Contract added.")}
+
+/* payments */
+function monthlyPaymentStatus(studentId,ym){
+ const list=state.payments.filter(p=>p.studentId===studentId&&String(p.date||"").slice(0,7)===ym&&String(p.type||"").toLowerCase()==="monthly");
+ const paid=list.some(p=>String(p.status||"").toLowerCase()==="paid");
+ return paid?"Paid":(list.length?"Unpaid":"No Record");
+}
+function monthlyPaymentStatusHtml(row){
+ const status=String(row.status||"");
+ const unpaid=status.toLowerCase()==="unpaid";
+ return `<span class="payment-status-badge ${status.toLowerCase().replace(/\\s+/g,"-")}">${esc(status)}</span>${unpaid?`<small class="unpaid-outstanding">Outstanding: ${money(row.outstanding||0)}</small>`:""}`;
+}
+function extraPaidAmount(totalPaid,totalDue){const extra=Number(totalPaid||0)-Number(totalDue||0);return Math.max(0,Math.round((extra+Number.EPSILON)*100)/100)}
+function extraPaidHtml(value){return `<span class="extra-paid-amount">${money(value||0)}</span>`}
+function paymentRecordExtra(x){const paid=Number(x?.amount||0),due=x?.amountDue===""||x?.amountDue==null?0:Number(x.amountDue||0);return extraPaidAmount(paid,due)}
+function contractPaymentInfo(contract){
+ const st=student(contract.studentId)||{};
+ const totalDue=Number(contract.amountDue||0);
+ const paid=state.payments.filter(p=>p.studentId===contract.studentId&&String(p.type||"").toLowerCase()==="contract"&&dateWithinContract(String(p.date||""),contract)&&String(p.status||"").toLowerCase()==="paid").reduce((a,p)=>a+Number(p.amount||0),0);
+ return {contract,totalDue,paid,extraPaid:extraPaidAmount(paid,totalDue),outstanding:Math.max(0,totalDue-paid),currency:st.currency||"USD"};
+}
+function contractPaymentRows(){return state.contracts.map(contractPaymentInfo)}
+function paymentLinks(x){
+ const ym=String(x.date||"").slice(0,7);
+ const monthly=String(x.type||"").toLowerCase()==="monthly";
+ const contract=String(x.type||"").toLowerCase()==="contract";
+ return `<div class="payment-link-buttons"><button class="mini" type="button" onclick="setView('payments')">Payments</button><button class="mini" type="button" onclick="setView('contracts')">Contract</button><button class="mini" type="button" onclick="setView('records')">Records</button><button class="mini" type="button" onclick="setView('reports')">Reports</button></div>${monthly?`<small class="payment-linked-box">Monthly: ${esc(monthlyPaymentStatus(x.studentId,ym))}</small>`:""}${contract?`<small class="payment-linked-box">Contract payment linked to contract.</small>`:""}`;
+}
+function payments(){
+ const ym=(document.getElementById("paymentMonth")?.value)||todayPH().slice(0,7),rows=monthlyPaymentRows(ym),contractRows=contractPaymentRows();
+ const totalDue=rows.reduce((a,r)=>a+r.expected,0),totalPaid=rows.reduce((a,r)=>a+r.paid,0),totalOutstanding=rows.reduce((a,r)=>a+r.outstanding,0);
+ const contractDue=contractRows.reduce((a,r)=>a+r.totalDue,0),contractPaid=contractRows.reduce((a,r)=>a+r.paid,0),contractOutstanding=contractRows.reduce((a,r)=>a+r.outstanding,0);
+ return header("Payments","Manage payment information using exact amounts due and outstanding balances. Amount due is entered directly and is never calculated from rate or class count. Payments are linked live with Contracts, Records, and Reports.")+
+ `<section class="panel"><div class="toolbar"><div><h2 style="margin:0">Payment Information</h2><p class="sub" style="margin:4px 0 0">Monthly payment due is calculated automatically from Present classes × the student's rate per class. No manual monthly amount due is required.</p></div><button class="primary" onclick="paymentForm()">+ Add Payment</button></div>
+ <div class="toolbar" style="margin-bottom:12px"><div class="left"><label style="min-width:180px">Month<input id="paymentMonth" class="field" type="month" value="${esc(ym)}" onchange="render()"></label></div><div class="right"><span class="badge">Monthly Due: ${money(totalDue)}</span><span class="badge">Monthly Paid: ${money(totalPaid)}</span><span class="badge">Monthly Outstanding: ${money(totalOutstanding)}</span></div></div>
+ <div class="table"><table class="payment-information-table"><thead><tr><th>Student</th><th>Type</th><th>Payable Classes</th><th>Rate / Class</th><th>Calculated Total Amount Due</th><th>Currency</th><th>Total Paid</th><th>Extra Paid Amount</th><th>Outstanding Balance</th><th>Status</th><th>Linked Tabs</th></tr></thead><tbody>
+ ${rows.length?rows.map(r=>`<tr><td><b>${esc(r.s.name)}</b><br><small>${esc(r.s.studentCode||"")}</small></td><td><span class="payment-type-badge monthly">Monthly</span></td><td>${r.payable}</td><td>${money(r.s.rate||0)}</td><td class="payment-due payment-exact-due">${money(r.expected)}</td><td>${esc(r.s.currency||"USD")}</td><td>${money(r.paid)}</td><td>${extraPaidHtml(r.extraPaid)}</td><td class="payment-outstanding ${r.outstanding<=0?"zero":""}">${money(r.outstanding)}</td><td>${monthlyPaymentStatusHtml(r)}</td><td><div class="payment-link-buttons"><button class="mini" type="button" onclick="setView('contracts')">Contract</button><button class="mini" type="button" onclick="setView('records')">Records</button><button class="mini" type="button" onclick="setView('reports')">Reports</button></div></td></tr>`).join(""):`<tr><td colspan="10" class="empty">No monthly payment students.</td></tr>`}
+ </tbody></table></div></section>
+ <section class="panel"><div class="toolbar"><div><h2 style="margin:0">Contract Payment Information</h2><p class="sub" style="margin:4px 0 0">Total amount due is entered as an exact contract amount. It is never calculated from classes or rate. Paid and outstanding amounts use Paid Contract payment records within the contract dates.</p></div><div class="right"><span class="badge">Due: ${money(contractDue)}</span><span class="badge">Paid: ${money(contractPaid)}</span><span class="badge">Outstanding: ${money(contractOutstanding)}</span></div></div>
+ <div class="table"><table class="payment-information-table"><thead><tr><th>Contract</th><th>Student</th><th>Dates</th><th>Package</th><th>Total Classes</th><th>Rate / Class</th><th>Calculated Total Amount Due</th><th>Currency</th><th>Total Paid</th><th>Extra Paid Amount</th><th>Outstanding Balance</th><th>Status</th><th>Linked Tabs</th></tr></thead><tbody>
+ ${contractRows.length?contractRows.map(r=>`<tr><td><b>${esc(r.contract.contractCode||"")}</b></td><td>${esc(nameOf(r.contract.studentId))}</td><td>${esc(r.contract.startDate||"")}<br>${esc(r.contract.endDate||"")}</td><td>${esc(r.contract.package||"")}</td><td>${r.contract.total}</td><td>${money((student(r.contract.studentId)||{}).rate||0)}</td><td class="payment-due payment-exact-due">${money(r.totalDue)}</td><td>${esc(r.currency)}</td><td>${money(r.paid)}</td><td>${extraPaidHtml(r.extraPaid)}</td><td class="payment-outstanding ${r.outstanding<=0?"zero":""}">${money(r.outstanding)}</td><td><span class="badge">${esc(r.contract.status)}</span></td><td><div class="payment-link-buttons"><button class="mini" type="button" onclick="setView('contracts')">Contract</button><button class="mini" type="button" onclick="setView('records')">Records</button><button class="mini" type="button" onclick="setView('reports')">Reports</button></div></td></tr>`).join(""):`<tr><td colspan="12" class="empty">No contracts yet.</td></tr>`}
+ </tbody></table></div></section>
+ <section class="panel"><div class="toolbar"><h2 style="margin:0">Payment Records</h2><span class="sub">${state.payments.length} payment record(s)</span></div>
+ <div class="table"><table class="payment-information-table"><thead><tr><th>Date</th><th>Student</th><th>Type</th><th>Amount</th><th>Status</th><th>Exact Total Amount Due</th><th>Extra Paid Amount</th><th>Outstanding Balance</th><th>Linked Tabs</th><th>Actions</th></tr></thead><tbody>
+ ${state.payments.length?state.payments.map(x=>{const isM=String(x.type||"").toLowerCase()==="monthly",c=isM?null:state.contracts.find(c=>c.studentId===x.studentId&&dateWithinContract(String(x.date||""),c)),info=isM?monthlyPaymentRows(String(x.date||"").slice(0,7)).find(r=>r.s.id===x.studentId):c?contractPaymentInfo(c):null;return `<tr><td>${esc(x.date)}</td><td>${esc(nameOf(x.studentId))}</td><td><span class="payment-type-badge ${isM?"monthly":String(x.type||"").toLowerCase()==="contract"?"contract":""}">${esc(x.type)}</span></td><td>${money(x.amount)} ${esc(x.currency||"USD")}</td><td>${isM&&info?monthlyPaymentStatusHtml(info):`<span class="payment-status-badge ${String(x.status||"").toLowerCase()}">${esc(x.status)}</span>`}</td><td>${info?money(info.expected??info.totalDue):"—"}</td><td>${info?extraPaidHtml(info.extraPaid):extraPaidHtml(paymentRecordExtra(x))}</td><td class="payment-outstanding ${info&&Number(info.outstanding||0)<=0?"zero":""}">${info?money(info.outstanding):"—"}</td><td>${paymentLinks(x)}</td><td class="actions"><button class="mini" onclick="paymentForm('${x.id}')">Edit</button><button class="mini del" onclick="confirmDelete('payment','${x.id}')">Delete</button></td></tr>`}).join(""):`<tr><td colspan="9" class="empty">No payment records yet.</td></tr>`}
+ </tbody></table></div></section>
+ <section class="panel extra-payment-tab"><div class="toolbar"><div><h2 style="margin:0">Extra Payment</h2><p class="sub">Extra paid amount is calculated from Total Paid minus Exact Total Amount Due. Example: 70.36 paid − 70.00 due = 0.36 extra paid.</p></div><span class="badge">Linked across all tabs</span></div><div class="stats" style="margin-bottom:14px"><article class="stat"><span>Extra Paid Amount</span><b>${money(rows.reduce((a,r)=>a+Number(r.extraPaid||0),0)+contractRows.reduce((a,r)=>a+Number(r.extraPaid||0),0))}</b></article><article class="stat"><span>Decimal Entry</span><b>0.01</b></article></div><div class="table"><table class="payment-information-table"><thead><tr><th>Student / Contract</th><th>Type</th><th>Exact Amount Due</th><th>Total Paid</th><th>Extra Paid Amount</th><th>Linked Tabs</th></tr></thead><tbody>${rows.filter(r=>r.extraPaid>0).map(r=>`<tr><td><b>${esc(r.s.name)}</b></td><td>Monthly</td><td>${money(r.expected)}</td><td>${money(r.paid)}</td><td>${extraPaidHtml(r.extraPaid)}</td><td>${paymentLinks({type:"Monthly",studentId:r.s.id,date:ym+"-01"})}</td></tr>`).join("")}${contractRows.filter(r=>r.extraPaid>0).map(r=>`<tr><td><b>${esc(nameOf(r.contract.studentId))}</b><br><small>${esc(r.contract.contractCode||"")}</small></td><td>Contract</td><td>${money(r.totalDue)}</td><td>${money(r.paid)}</td><td>${extraPaidHtml(r.extraPaid)}</td><td>${paymentLinks({type:"Contract",studentId:r.contract.studentId,date:r.contract.startDate||ym+"-01"})}</td></tr>`).join("")||`<tr><td colspan="6" class="empty">No extra payments recorded.</td></tr>`}</tbody></table></div></section>`
+}
+function paymentForm(id=""){const x=id?state.payments.find(a=>a.id===id):{studentId:"",date:todayPH(),type:"Class Payment",amount:"",currency:"USD",status:"Paid"};modal(id?"Edit Payment":"Add Payment",`<form onsubmit="savePayment(event,'${id}')"><div class="grid"><label>Student<select class="field" name="studentId" required>${opts(x.studentId)}</select></label>${input("Payment Date","date",x.date,false,"date")}${select("Payment Type","type",["Class Payment","Contract","Monthly"],x.type)}<label>Amount Paid<input class="field" name="amount" type="number" min="0" step="0.01" value="${esc(x.amount??"")}" required>></label><label>Amount Due (optional for non-monthly payments)<input class="field" name="amountDue" type="number" min="0" step="0.01" value="${esc(x.amountDue??"")}" step="0.01">></label>${input("Currency","currency",x.currency)}${select("Status","status",["Paid","Unpaid"],x.status)}</div><p class="exact-due-note">Enter the exact amounts with cents, for example <b>70.36</b>. If the amount paid is higher than the exact amount due, the difference is automatically shown as <b>Extra Paid Amount</b> and linked across Contracts, Payments, Records, and Reports.</p><div class="modal-actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button class="primary">Save Payment</button></div></form>`)}
+function savePayment(e,id){e.preventDefault();const d=formData(e.target);d.id=id||uid("payment");d.amount=+d.amount||0;d.amountDue=d.amountDue===""?"":(+d.amountDue||0);if(id)state.payments[state.payments.findIndex(x=>x.id===id)]={...state.payments.find(x=>x.id===id),...d};else state.payments.push(d);persist();closeModal();render();toast(id?"Payment updated.":"Payment recorded.")}
+/* records */
+function findClassRecordIndex(id){
+  if(!id)return -1;
+  return state.classRecords.findIndex(r=>String(r.id)===String(id));
+}
+function orderedClassRecords(){
+  return [...state.classRecords].sort((a,b)=>Number(b.createdAt||0)-Number(a.createdAt||0));
+}
+/* Central monthly-payment link: Records and Reports always derive their status from the live Payments data for the same student and YYYY-MM month. */
+function monthlyPaymentRows(ym){return state.students.filter(s=>s.paymentType==="Monthly").map(s=>{const records=state.classRecords.filter(r=>r.studentId===s.id&&String(r.phDate||"").slice(0,7)===ym&&isPresent(r.status));const booked=allBookedClasses().filter(x=>x.studentId===s.id&&isPresent(getClassStatus(x))&&classDateForContract(x).slice(0,7)===ym);const ids=new Set(records.map(r=>String(r.id||"")));const payable=records.length+booked.filter(x=>!ids.has(String(x.id||""))).length;const rate=Number(s.rate||0);const expected=Math.round(payable*rate*100)/100;const monthlyPayments=state.payments.filter(p=>p.studentId===s.id&&String(p.date||"").slice(0,7)===ym&&String(p.type||"").toLowerCase()==="monthly");const paid=monthlyPayments.filter(p=>String(p.status||"").toLowerCase()==="paid").reduce((a,p)=>a+Number(p.amount||0),0);const status=monthlyPaymentStatus(s.id,ym);return {s,payable,rate,expected,paid,extraPaid:extraPaidAmount(paid,expected),outstanding:Math.max(0,Math.round((expected-paid)*100)/100),status}})}
+function studentConductedClasses(studentId){
+ const seen=new Set();
+ const add=(date,time,duration)=>{const key=[studentId,date||"",time||"",duration||25].join("|");if(!seen.has(key))seen.add(key)};
+ state.classRecords.filter(r=>r.studentId===studentId&&isPresent(r.status)).forEach(r=>add(r.phDate,r.phTime,r.duration));
+ allBookedClasses().filter(x=>x.studentId===studentId&&isPresent(getClassStatus(x))).forEach(x=>add(classDateForContract(x),x.philippinesTime,x.duration));
+ return seen.size;
+}
+function records(){
+ const ym=todayPH().slice(0,7),rows=monthlyPaymentRows(ym),due=rows.reduce((a,r)=>a+r.expected,0),paid=rows.reduce((a,r)=>a+r.paid,0),contractRows=contractPaymentRows(),contractDue=contractRows.reduce((a,r)=>a+r.totalDue,0),contractPaid=contractRows.reduce((a,r)=>a+r.paid,0);
+ return header("Class Records","Log lessons and preserve class history. Book, lesson, and page can be updated individually for each class record without changing the student profile. Updates are reflected in Today's Classes and linked schedules. Payment information is linked with Payments, Contracts, and Reports.")+
+ `<section class="panel"><div class="toolbar"><span class="sub">${state.classRecords.length} class record(s)</span><div class="right"><button class="mini" type="button" onclick="setView('payments')">Payments</button><button class="mini" type="button" onclick="setView('contracts')">Contracts</button><button class="mini" type="button" onclick="setView('reports')">Reports</button><button class="primary" onclick="recordForm()">+ Add Class Record</button></div></div><div class="table"><table><thead><tr><th>PH Date / Time</th><th>Student</th><th>Duration</th><th>Book / Lesson / Page</th><th>Status</th><th>Actions</th></tr></thead><tbody>${state.classRecords.length?orderedClassRecords().map(x=>`<tr><td>${esc(x.phDate)}<br>${esc(x.phTime)}</td><td>${esc(nameOf(x.studentId))}</td><td>${esc(x.duration)} min</td><td>${esc(x.book)}<br>${esc(x.lesson)} · ${esc(x.page)}</td><td><span class="badge ${statusClassName(x.status)}">${esc(x.status)}</span></td><td><button class="mini" onclick="recordForm('${x.id}')">Edit</button><button class="mini del" onclick="confirmDelete('record','${x.id}')">Delete</button></td></tr>`).join(""):`<tr><td colspan="6" class="empty">No class records yet.</td></tr>`}</tbody></table></div></section>
+ <section class="panel"><div class="toolbar"><h2>Monthly Payment Summary</h2><div class="right"><button class="mini" type="button" onclick="setView('payments')">Payments</button><button class="mini" type="button" onclick="setView('reports')">Reports</button></div></div><section class="stats"><article class="stat"><span>Total Amount Due</span><b>${money(due)}</b></article><article class="stat"><span>Total Paid</span><b>${money(paid)}</b></article><article class="stat"><span>Total Outstanding</span><b>${money(Math.max(0,due-paid))}</b></article></section><div class="table" style="margin-top:14px"><table class="payment-information-table"><thead><tr><th>Student</th><th>Payable Classes</th><th>Total Amount Due</th><th>Paid</th><th>Extra Paid Amount</th><th>Outstanding Balance</th><th>Status</th><th>Linked</th></tr></thead><tbody>${rows.length?rows.map(r=>`<tr><td>${esc(r.s.name)}</td><td>${r.payable}</td><td class="payment-due payment-exact-due">${money(r.expected)}</td><td>${money(r.paid)}</td><td>${extraPaidHtml(r.extraPaid)}</td><td class="payment-outstanding ${r.outstanding<=0?"zero":""}">${money(r.outstanding)}</td><td><span class="badge ${statusClassName(r.status)}">${esc(r.status)}</span></td><td><div class="payment-link-buttons"><button class="mini" type="button" onclick="setView('payments')">Payments</button><button class="mini" type="button" onclick="setView('contracts')">Contract</button><button class="mini" type="button" onclick="setView('reports')">Reports</button></div></td></tr>`).join(""):`<tr><td colspan="7" class="empty">No monthly payment students.</td></tr>`}</tbody></table></div></section>
+ <section class="panel"><div class="toolbar"><h2>Contract Payment Summary</h2><div class="right"><span class="badge">Due: ${money(contractDue)}</span><span class="badge">Paid: ${money(contractPaid)}</span><span class="badge">Outstanding: ${money(Math.max(0,contractDue-contractPaid))}</span></div></div><div class="table"><table class="payment-information-table"><thead><tr><th>Contract</th><th>Student</th><th>Total Amount Due</th><th>Paid</th><th>Extra Paid Amount</th><th>Outstanding Balance</th><th>Status</th><th>Linked</th></tr></thead><tbody>${contractRows.length?contractRows.map(r=>`<tr><td>${esc(r.contract.contractCode||"")}</td><td>${esc(nameOf(r.contract.studentId))}</td><td class="payment-due payment-exact-due">${money(r.totalDue)}</td><td>${money(r.paid)}</td><td>${extraPaidHtml(r.extraPaid)}</td><td class="payment-outstanding ${r.outstanding<=0?"zero":""}">${money(r.outstanding)}</td><td><span class="badge">${esc(r.contract.status)}</span></td><td><div class="payment-link-buttons"><button class="mini" type="button" onclick="setView('payments')">Payments</button><button class="mini" type="button" onclick="setView('contracts')">Contract</button><button class="mini" type="button" onclick="setView('reports')">Reports</button></div></td></tr>`).join(""):`<tr><td colspan="7" class="empty">No contracts yet.</td></tr>`}</tbody></table></div></section>`+`<section class="panel"><div class="toolbar"><h2>Extra Payment Summary</h2><span class="badge">Linked from Payments</span></div><div class="table"><table class="payment-information-table"><thead><tr><th>Student / Contract</th><th>Type</th><th>Extra Paid Amount</th><th>Linked</th></tr></thead><tbody>${rows.filter(r=>r.extraPaid>0).map(r=>`<tr><td>${esc(r.s.name)}</td><td>Monthly</td><td>${extraPaidHtml(r.extraPaid)}</td><td><button class="mini" onclick="setView('payments')">Payments</button></td></tr>`).join("")}${contractRows.filter(r=>r.extraPaid>0).map(r=>`<tr><td>${esc(nameOf(r.contract.studentId))}</td><td>Contract</td><td>${extraPaidHtml(r.extraPaid)}</td><td><button class="mini" onclick="setView('payments')">Payments</button></td></tr>`).join("")||`<tr><td colspan="4" class="empty">No extra payments.</td></tr>`}</tbody></table></div></section>`
+}
+function recordForm(id=""){
+  const idx=id?findClassRecordIndex(id):-1;
+  if(id&&idx<0){toast("Class record not found.","error");return}
+  const x=id?state.classRecords[idx]:{studentId:"",phDate:todayPH(),phTime:"09:00",duration:"25",book:"",lesson:"",page:"",status:"Scheduled",note:""};
+  modal(id?"Edit Class Record":"Add Class Record",`<form onsubmit="saveRecord(event,'${id}')"><div class="grid"><label class="full">Student<select class="field" name="studentId" required>${opts(x.studentId)}</select></label>${input("Philippines Date","phDate",x.phDate,true,"date")}${input("Philippines Time","phTime",x.phTime,true,"time")}${select("Duration","duration",["25","50"],String(x.duration))}${input("Book","book",x.book)}${input("Lesson","lesson",x.lesson)}${input("Page","page",x.page)}${select("Status","status",RECORD_STATUSES,x.status)}<label class="full">Class Note<textarea class="field" name="note">${esc(x.note)}</textarea></label></div><div class="modal-actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button class="primary">Save Class Record</button></div></form>`)}
+function saveRecord(e,id){
+  e.preventDefault();
+  const d=formData(e.target);
+  d.duration=+d.duration||25;
+  if(id){
+    const idx=findClassRecordIndex(id);
+    if(idx<0){toast("SAVE FAILED: The selected class record no longer exists.","error");return}
+    const existing=state.classRecords[idx];
+    d.id=existing.id;
+    d.createdAt=existing.createdAt||Date.now();
+    state.classRecords[idx]={...existing,...d};
+    // Keep the linked schedule's individual book, lesson, and page in sync.
+    if(existing.sourceScheduleId){
+      const sourceList=existing.sourceScheduleType==="weekly"?state.weeklySchedules:existing.sourceScheduleType==="single"?state.singleDaySchedules:null;
+      const source=sourceList?.find(x=>String(x.id)===String(existing.sourceScheduleId));
+      if(source){source.book=d.book||"";source.lesson=d.lesson||"";source.page=d.page||"";source.note=d.note||source.note||"";}
+    }
+  }else{
+    d.id=uid("record");
+    d.createdAt=Date.now();
+    state.classRecords.unshift(d);
+  }
+  recalculateContracts();
+  persist();
+  closeModal();
+  render();
+  toast(id?"Class record updated.":"Class record added.");
+}
+
+/* reports */
+function reportYears(){const ys=new Set([+reportYear]);[...state.payments.map(x=>x.date),...state.classRecords.map(x=>x.phDate),...state.contracts.flatMap(x=>[x.startDate,x.endDate])].forEach(d=>{if(d)ys.add(+String(d).slice(0,4))});return [...ys].filter(Boolean).sort((a,b)=>b-a)}
+function reports(){
+  try{
+    const ym=`${String(reportYear||phYear())}-${String(reportMonth||phMonth()).padStart(2,"0")}`;
+    let rows=monthlyPaymentRows(ym);
+    if(reportStudent)rows=rows.filter(r=>r.s&&r.s.id===reportStudent);
+    const expected=rows.reduce((a,r)=>a+Number(r.expected||0),0);
+    const paid=rows.reduce((a,r)=>a+Number(r.paid||0),0);
+    const months=[["01","January"],["02","February"],["03","March"],["04","April"],["05","May"],["06","June"],["07","July"],["08","August"],["09","September"],["10","October"],["11","November"],["12","December"]];
+
+    const q=String(reportStudentQuery||"").trim().toLowerCase();
+    const matchedStudents=state.students.filter(s=>{
+      if(!q)return true;
+      return [s.name,s.studentCode,s.country].some(v=>String(v??"").toLowerCase().includes(q));
+    });
+    const selected=matchedStudents.length===1?matchedStudents[0]:null;
+    const conducted=selected?studentConductedClasses(selected.id):0;
+    const presentRecords=selected?state.classRecords.filter(r=>r.studentId===selected.id&&isPresent(r.status)).length:0;
+    const resultNote=!q
+      ?"Search by student name, Student ID, or country."
+      :(matchedStudents.length
+        ?`${matchedStudents.length} student${matchedStudents.length===1?"":"s"} found.`
+        :"No matching student found.");
+
+    return header("Reports","Check monthly payment status by month, year, and student.")+`
+      <section class="panel reports-student-search">
+        <div class="toolbar" style="align-items:flex-end;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:240px">
+            <h2 style="margin:0">Student Class Summary</h2>
+            <p class="sub" style="margin:4px 0 0">Search for a student to check the total number of conducted classes.</p>
+          </div>
+          <button class="primary" type="button" onclick="window.reportStudentSearch()">Search Student</button>
+          <button class="ghost" type="button" onclick="window.clearReportStudentSearch()">Clear</button>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px">
+          <input id="report-student-search" class="field" style="flex:1;min-width:240px" value="${esc(reportStudentQuery)}" placeholder="Search student name, Student ID, or country" onkeydown="if(event.key==='Enter'){event.preventDefault();window.reportStudentSearch()}" />
+        </div>
+        <p class="sub" style="margin:8px 0 0">${esc(resultNote)}</p>
+        ${q&&selected?`
+          <section class="stats" style="margin-top:12px">
+            <article class="stat stat-rose"><span>Student</span><b>${esc(selected.name)}</b></article>
+            <article class="stat stat-mint"><span>Total Conducted Classes</span><b>${conducted}</b></article>
+            <article class="stat stat-sky"><span>Present Class Records</span><b>${presentRecords}</b></article>
+          </section>`:q&&matchedStudents.length>1?`
+          <div class="table" style="margin-top:12px">
+            <table><thead><tr><th>Student</th><th>Student ID</th><th>Country</th><th>Total Conducted Classes</th></tr></thead><tbody>
+              ${matchedStudents.map(s=>`<tr><td><b>${esc(s.name)}</b></td><td>${esc(s.studentCode||"—")}</td><td>${esc(s.country||"—")}</td><td><b>${studentConductedClasses(s.id)}</b></td></tr>`).join("")}
+            </tbody></table>
+          </div>`:""}
+      </section>
+
+      <section class="panel">
+        <div class="toolbar">
+          <div><h2 style="margin:0">Payment Status</h2><p class="sub">Select a month, year, and student.</p></div>
+          <div class="right">
+            <label>Month<select class="field" onchange="reportMonth=this.value;render()">${months.map(m=>`<option value="${m[0]}" ${m[0]===String(reportMonth).padStart(2,"0")?"selected":""}>${m[1]}</option>`).join("")}</select></label>
+            <label>Year<select class="field" onchange="reportYear=this.value;render()">${reportYears().map(y=>`<option value="${y}" ${+y===+reportYear?"selected":""}>${y}</option>`).join("")}</select></label>
+            <label>Student<select class="field" onchange="reportStudent=this.value;render()"><option value="">All Students</option>${state.students.map(s=>`<option value="${esc(s.id)}" ${s.id===reportStudent?"selected":""}>${esc(s.name)}</option>`).join("")}</select></label>
+          </div>
+        </div>
+        <section class="stats">
+          <article class="stat"><span>Students Checked</span><b>${rows.length}</b></article>
+          <article class="stat"><span>Paid</span><b>${rows.filter(r=>r.status==="Paid").length}</b></article>
+          <article class="stat"><span>Unpaid</span><b>${rows.filter(r=>r.status==="Unpaid").length}</b></article>
+          <article class="stat"><span>Expected Total</span><b>${money(expected)}</b></article>
+          <article class="stat"><span>Paid Amount</span><b>${money(paid)}</b></article><article class="stat"><span>Extra Paid Amount</span><b>${money(rows.reduce((a,r)=>a+Number(r.extraPaid||0),0))}</b></article>
+          <article class="stat"><span>Outstanding</span><b>${money(Math.max(0,expected-paid))}</b></article>
+        </section>
+      </section>
+
+      <section class="panel"><h2>Monthly Payment Amount Due</h2><div class="table"><table><thead><tr><th>Student</th><th>Payable Classes</th><th>Rate / Class</th><th>Calculated Total Amount Due</th><th>Currency</th><th>Paid</th><th>Remaining</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+        ${rows.length?rows.map(r=>`<tr><td><b>${esc(r.s.name)}</b><br><small>${esc(r.s.studentCode||"")}</small></td><td>${r.payable}</td><td>${money(r.s.rate)}</td><td><b>${money(r.expected)}</b></td><td>${esc(r.s.currency||"USD")}</td><td>${money(r.paid)}</td><td><b>${money(r.outstanding)}</b></td><td><span class="badge ${statusClassName(r.status)}">${esc(r.status)}</span></td><td><button class="mini" type="button" onclick="paymentForm()">Add Payment</button></td></tr>`).join(""):`<tr><td colspan="9" class="empty">No monthly payment students match the selected filters.</td></tr>`}
+      </tbody></table></div></section>
+
+      <section class="panel"><div class="toolbar"><div><h2 style="margin:0">Contract Payment Report</h2><p class="sub">Contract total amount due and outstanding balance are linked directly to Contracts and Payments.</p></div><div class="right"><button class="mini" type="button" onclick="setView('payments')">Payments</button><button class="mini" type="button" onclick="setView('contracts')">Contracts</button><button class="mini" type="button" onclick="setView('records')">Records</button></div></div><div class="table"><table class="payment-information-table"><thead><tr><th>Contract</th><th>Student</th><th>Dates</th><th>Total Amount Due</th><th>Paid</th><th>Extra Paid Amount</th><th>Outstanding Balance</th><th>Status</th><th>Linked</th></tr></thead><tbody>${contractPaymentRows().filter(r=>!reportStudent||r.contract.studentId===reportStudent).length?contractPaymentRows().filter(r=>!reportStudent||r.contract.studentId===reportStudent).map(r=>`<tr><td><b>${esc(r.contract.contractCode||"")}</b></td><td>${esc(nameOf(r.contract.studentId))}</td><td>${esc(r.contract.startDate||"")}<br>${esc(r.contract.endDate||"")}</td><td class="payment-due payment-exact-due">${money(r.totalDue)}</td><td>${money(r.paid)}</td><td>${extraPaidHtml(r.extraPaid)}</td><td class="payment-outstanding ${r.outstanding<=0?"zero":""}">${money(r.outstanding)}</td><td><span class="badge">${esc(r.contract.status)}</span></td><td><div class="payment-link-buttons"><button class="mini" type="button" onclick="setView('payments')">Payments</button><button class="mini" type="button" onclick="setView('contracts')">Contract</button><button class="mini" type="button" onclick="setView('records')">Records</button></div></td></tr>`).join(""):`<tr><td colspan="9" class="empty">No contract payment information for the selected student.</td></tr>`}</tbody></table></div></section>
+
+      <section class="panel"><h2>Overall Reports</h2><section class="stats">
+        ${[["Students",state.students.length],["Class Records",state.classRecords.length],["Weekly Schedules",state.weeklySchedules.length],["Single-Day Schedules",state.singleDaySchedules.length],["Contracts",state.contracts.length],["Payments",state.payments.length],["Present Records",state.classRecords.filter(x=>x.status==="Present").length],["Booked Present",allBookedClasses().filter(x=>getClassStatus(x)==="Present").length]].map(x=>`<article class="stat"><span>${x[0]}</span><b>${x[1]}</b></article>`).join("")}
+      </section></section>`;
+  }catch(error){
+    console.error("Reports render error:",error);
+    return header("Reports","Check monthly payment status by month, year, and student.")+`<section class="panel"><div class="notice"><b>Reports could not be displayed.</b><br>Please refresh the page. Your saved students, classes, contracts, and payments have not been deleted.</div></section>`;
+  }
+}
+function reportStudentSearch(){
+  const el=document.getElementById("report-student-search");
+  reportStudentQuery=el?el.value:"";
+  render();
+}
+function clearReportStudentSearch(){
+  reportStudentQuery="";
+  render();
+}
+window.reportStudentSearch=reportStudentSearch;
+window.clearReportStudentSearch=clearReportStudentSearch;
+
+/* delete */
+function confirmDelete(type,id){const labels={weekly:"weekly schedule",single:"single-day class",student:"student",contract:"contract",payment:"payment record",record:"class record"};modal("Confirm Delete",`<p>Are you sure you want to delete this ${esc(labels[type]||"record")}?</p><div class="modal-actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="danger" onclick="deleteItem('${type}','${id}')">Delete</button></div>`)}
+function deleteItem(type,id){const map={weeklySchedules:"weekly",singleDaySchedules:"single",contracts:"contract",payments:"payment",classRecords:"record"};if(type==="student"){state.students=state.students.filter(x=>x.id!==id);["weeklySchedules","singleDaySchedules","contracts","payments","classRecords"].forEach(k=>state[k]=state[k].filter(x=>x.studentId!==id));localStorage.removeItem("teacher_marc_student_photo_"+id);view="students"}else{const k=Object.keys(map).find(k=>map[k]===type);if(k)state[k]=state[k].filter(x=>x.id!==id)}recalculateContracts();persist();closeModal();render();toast("Record successfully deleted.")}
+
+const oldTeacherPhoto=localStorage.getItem(PHOTO_KEY);if(oldTeacherPhoto)applyTeacherPhoto(oldTeacherPhoto);
+recalculateContracts();persist();render();
+
+</script>
+
+
+
+
+
+</body>
+</html>
